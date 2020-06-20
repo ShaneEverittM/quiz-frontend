@@ -4,18 +4,18 @@ import "../styles.css"
 const Navbar = () => {
     return (<div className="navbar">
 
-        <div>
+        <a href="/placeholder">
             This is a navbar
-        </div>
-        <div>
+        </a>
+        <a href="/placeholder">
             navbar-option#1
-        </div>
-        <div>
+        </a>
+        <a href="/placeholder">
             navbar-option#2
-        </div>
-        <div>
+        </a>
+        <a href="/placeholder">
             navbar-option#3
-        </div>
+        </a>
 
     </div>)
 }
