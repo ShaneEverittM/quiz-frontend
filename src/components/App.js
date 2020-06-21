@@ -12,20 +12,16 @@ import {
 
 /* some request to server to get queezes. 
 next line is inital placeholder placeholder */
-let quiz_list = ["quiz1", "quiz2", "quiz3", "quiz4", "quiz5", "quiz6"]
 const App = () => {
     return (
         <Router>
             <Navbar />
-            <Route path="/" exact>
-                <Home />
-            </Route>
-            <Route path="/quiz" exact>
-                <Quiz />
-            </Route>
-            <Route path="/placeholder" exact>
-                <Place />
-            </Route>
+            <Route path="/" exact component={Home} />
+
+            <Route path="/quiz" exact component={Quiz} />
+
+            <Route path="/placeholder" exact component={Place} />
+
         </Router>
     )
 

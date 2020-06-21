@@ -10,9 +10,11 @@
 .quiz-container{
     flex-direction: row;
 }
-/* .quiz-category{
-    pass:pass;
-} */
+.navbar-content{
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding:10px;
+}
 .quiz-category::before{
   content:" ";
   position: absolute;
@@ -21,6 +23,9 @@
   height:1.1em; /*use this to adjust underline position*/
 }
 
+.current-tab{
+    text-decoration: underline;
+}
 .navbar{
     display:flex;
     justify-content: space-evenly;

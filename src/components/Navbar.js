@@ -1,21 +1,22 @@
 import React from "react"
+import { NavLink } from "react-router-dom"
 import "../styles.css"
 
 const Navbar = () => {
     return (<div className="navbar">
 
-        <a href="/placeholder">
+        <NavLink exact activeClassName="current-tab" className="navbar-content" to="/">
             This is a navbar
-        </a>
-        <a href="/placeholder">
+        </NavLink>
+        <NavLink activeClassName="current-tab" className="navbar-content" to="/placeholder">
             navbar-option#1
-        </a>
-        <a href="/placeholder">
+        </NavLink>
+        <NavLink activeClassName="current-tab" className="navbar-content" to="/placeholder">
             navbar-option#2
-        </a>
-        <a href="/placeholder">
+        </NavLink>
+        <NavLink activeClassName="current-tab" className="navbar-content" to="/placeholder">
             navbar-option#3
-        </a>
+        </NavLink>
 
     </div>)
 }
