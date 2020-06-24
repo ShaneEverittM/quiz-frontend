@@ -11,6 +11,7 @@ let Answer = ({ answers, onSelect, questionNum }) => {
 
   return (
     <div>
+      {console.log(answers)}
       {answers.map((answer, index) => {
         return (
           <div
@@ -18,7 +19,7 @@ let Answer = ({ answers, onSelect, questionNum }) => {
             className={`quiz-box ${selection === index ? "" : "unselected"}`}
             key={index}
           >
-            {answer}
+            {answer.description}
           </div>
         );
       })}
