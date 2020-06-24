@@ -1,7 +1,7 @@
 import React from "react"
 
-const Question = () => {
-    return <div>Question</div>
+const Question = ({question}) => {
+    return( <div><h4>{question}</h4></div>)
 }
 
 export default Question;

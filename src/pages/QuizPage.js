@@ -1,5 +1,33 @@
 import React from "react"
 import { Redirect } from "react-router-dom"
+import Question from "../components/Question"
+import Answer from "../components/Answer"
+
+/*
+data given in form of {"quiz":
+{"id":1,"name":"test","num_questions":5},
+"questions":[
+    {"id":1,"description":"description","qz_id":1},
+    {"id":2,"description":"description","qz_id":1},
+    {"id":3,"description":"description","qz_id":1},
+    {"id":4,"description":"description","qz_id":1},
+    {"id":5,"description":"description","qz_id":1}
+],
+"answers":[
+    [
+        {"id":1,"description":"description","val":2,"q_id":1}
+    ],[
+        {"id":2,"description":"description","val":2,"q_id":2}
+    ],[
+        {"id":3,"description":"description","val":2,"q_id":3}
+    ],[
+        {"id":4,"description":"description","val":2,"q_id":4}
+    ],[
+        {"id":5,"description":"description","val":2,"q_id":5}
+    ]
+]
+}
+*/
 
 const serverURL = "https://jsonplaceholder.typicode.com/posts/1"
 const serverURL2 = "http://localhost:8000/"
@@ -26,7 +54,8 @@ class QuizPage extends React.Component {
         questions: [],
         curQuestion: 0,
         numQuestions: 2,
-        redirectToResults: false
+        redirectToResults: false,
+        responses:[]
     }
 
     componentDidMount() {
@@ -74,23 +103,24 @@ class QuizPage extends React.Component {
             <button onClick={handle}> {buttonText}</button>
         )
     }
+
+    onClick = (e) =>{
+        console.log("clicked",e)
+    }
+
     render() {
         return (
             <div>
                 <h3>Title: {this.state.title}</h3>
                 <p>This is a quiz:{this.state.description}</p>
                 {
-                    this.state.questions.map((item, i) => {
-                        return <div key={i}>
-                            <h4>{item.q}</h4>
-                            {item.pa.map((item, j) => {
-                                return <div key={j}>
-                                    <input type="radio" id={item} name={i} />
-                                    <label htmlFor={item}>{item}</label>
-                                </div>
-
-                            })}
-                        </div>
+                    this.state.questions.map((questionText, i) => {
+                         return <div  key={i}>
+                              <Question question={questionText.q} />
+                                {questionText.pa.map((answerText,j) =>{ //this will be changed to a separate answer array matched by Ids
+                                    return <Answer key={j} onChange={this.onClick} name={i} text={answerText}/>
+                                })}
+                         </div> 
                     })
                 }
                 {this.renderButtonText()}
