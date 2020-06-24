@@ -39,18 +39,21 @@ class QuizPage extends React.Component {
         fetch(serverURL)
             .then(response => response.json())
             .then(json => { this.setState({ title: json.title, description: json.body }) })
+            .catch(this.setState({ title: "err", description: "err" }))
 
         //fetch(serverURL2).then(response => response.json()).then(json => console.log(json)).catch(() => console.log("we tried our best"))
     }
     renderNextQuestion = () => {
         if (this.state.curQuestion < this.state.numQuestions)
             this.setState({ questions: [...this.state.questions, data[this.state.curQuestion]], curQuestion: this.state.curQuestion + 1 })
-
     }
+
     redirect = () => {
-        console.log("running")
         if (this.state.redirectToResults) {
-            return <Redirect to="/placeholder" />
+            return <Redirect to={{
+                pathname: "/results",
+                state: { results: "brrr" }
+            }} />
         }
     }
     setRedirect = () => {

@@ -1,9 +1,9 @@
 import React from "react"
-import Quiz from "../pages/QuizPage"
+import QuizPage from "../pages/QuizPage"
 import Navbar from "./Navbar"
 import Home from "../pages/Home"
 import Place from "../pages/Placeholder"
-
+import ResultPage from "../pages/ResultPage"
 import {
     BrowserRouter as Router,
     Route
@@ -18,7 +18,8 @@ const App = () => {
             <Navbar />
             <Route path="/" exact component={Home} />
 
-            <Route path="/quiz" exact component={Quiz} />
+            <Route path="/quiz" exact component={QuizPage} />
+            <Route path="/results" exact component={ResultPage} />
 
             <Route path="/placeholder" exact component={Place} />
 
