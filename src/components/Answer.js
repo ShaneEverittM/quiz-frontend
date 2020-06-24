@@ -1,14 +1,29 @@
-import React from "react"
+import React, { useState } from "react";
+import "../styles.css";
 
+let Answer = ({ answers, onSelect, questionNum }) => {
+  let [selection, setSelection] = useState(-1);
 
-let Answer = ({name,text, onChange}) => {
+  const handleSelect = (i) => {
+    setSelection(i);
+    onSelect(i, questionNum);
+  };
 
-    return (
-            <div>
-                 <input  type="radio" id={text} onChange={(text) =>onChange(text)} name={name} />
-                 <label htmlFor={text}>{text}</label>
-             </div>
-              )
-}
+  return (
+    <div>
+      {answers.map((answer, index) => {
+        return (
+          <div
+            onClick={() => handleSelect(index)}
+            className={`quiz-box ${selection === index ? "" : "unselected"}`}
+            key={index}
+          >
+            {answer}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 export default Answer;
