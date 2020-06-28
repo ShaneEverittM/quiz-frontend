@@ -10,6 +10,9 @@
 .quiz-container {
   flex-direction: row;
 }
+.hide {
+  display: none;
+}
 .navbar-content {
   border-left: 1px solid black;
   border-right: 1px solid black;

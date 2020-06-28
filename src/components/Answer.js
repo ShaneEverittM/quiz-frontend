@@ -11,7 +11,6 @@ let Answer = ({ answers, onSelect, questionNum }) => {
 
   return (
     <div>
-      {console.log(answers)}
       {answers.map((answer, index) => {
         return (
           <div
