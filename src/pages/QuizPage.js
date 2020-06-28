@@ -54,6 +54,7 @@ class QuizPage extends React.Component {
     numQuestions: 2,
     redirectToResults: false,
     responses: [],
+    resultButton: false,
   };
   scrollRef = React.createRef();
 
@@ -81,9 +82,6 @@ class QuizPage extends React.Component {
       if (this.scrollRef.current) {
         this.scrollRef.current.scrollIntoView();
       }
-
-      console.log("scrollRef: ", this.scrollRef);
-
       this.setState({
         questions: [...this.state.questions, data.questions[curQuestion]],
         curQuestion: curQuestion + 1,
@@ -112,26 +110,28 @@ class QuizPage extends React.Component {
   };
 
   renderButton = () => {
-    let buttonText = "Start";
-    let handle = this.renderNextQuestion;
-    let hide = "";
+    if (this.state.curQuestion === 0)
+      return <button onClick={this.renderNextQuestion}>Start!</button>;
 
-    if (this.state.curQuestion === data.questions.length) {
-      buttonText = "View Results!";
-      handle = this.setRedirect;
-    } else if (this.state.curQuestion !== 0) hide = "hide";
-    return (
-      <button className={hide} onClick={handle}>
-        {buttonText}
-      </button>
-    );
+    if (this.state.resultButton) {
+      if (this.scrollRef.current) {
+        this.scrollRef.current.scrollIntoView();
+      }
+      return (
+        <div ref={this.scrollRef}>
+          <button onClick={this.setRedirect}>View Results!</button>
+        </div>
+      );
+    }
   };
 
   onSelectAnswer = (answerPos, questionNum) => {
     let { responses } = this.state;
-    responses[questionNum] = answerPos;
+    responses[questionNum] = data.answers[questionNum][answerPos].val;
     this.setState({ responses });
     if (questionNum === this.state.curQuestion - 1) this.renderNextQuestion();
+    if (data.questions.length === this.state.curQuestion)
+      this.setState({ resultButton: true });
   };
 
   render() {
