@@ -40,6 +40,10 @@
 .unselected {
   opacity: 60%;
 }
+.selected {
+  color: orange;
+  background-color: blanchedalmond;
+}
 a {
   color: black;
   text-decoration: none;

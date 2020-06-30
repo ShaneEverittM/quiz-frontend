@@ -1,7 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import Question from "../components/Question";
-import Answer from "../components/Answer";
+import QuizQuestion from "../components/QuizQuestion";
 
 const data = {
   quiz: { id: 1, name: "test", num_questions: 5 },
@@ -142,8 +141,8 @@ class QuizPage extends React.Component {
         {this.state.questions.map((questionText, i) => {
           return (
             <div ref={this.scrollRef} key={i}>
-              <Question question={questionText.description} />
-              <Answer
+              <QuizQuestion
+                question={questionText.description}
                 questionNum={i}
                 answers={data.answers[i]}
                 onSelect={this.onSelectAnswer}

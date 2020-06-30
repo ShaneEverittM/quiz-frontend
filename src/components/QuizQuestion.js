@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles.css";
 
-let Answer = ({ answers, onSelect, questionNum }) => {
+let QuizQuestion = ({ answers, onSelect, questionNum, question }) => {
   let [selection, setSelection] = useState(-1);
 
   const handleSelect = (i) => {
@@ -11,6 +11,7 @@ let Answer = ({ answers, onSelect, questionNum }) => {
 
   return (
     <div>
+      <h4>{question}</h4>
       {answers.map((answer, index) => {
         return (
           <div
@@ -26,4 +27,4 @@ let Answer = ({ answers, onSelect, questionNum }) => {
   );
 };
 
-export default Answer;
+export default QuizQuestion;
