@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const QuizComponent = ({ questionNum, handleAdd }) => {
+const QuizComponent = ({ text, questionNum, handleAdd }) => {
   let [questionText, setQuestionText] = useState("");
   const submit = () => {
     setQuestionText("");
@@ -8,7 +8,7 @@ const QuizComponent = ({ questionNum, handleAdd }) => {
   };
   return (
     <div>
-      <label htmlFor="question">Add New</label>
+      <label htmlFor="question">{text}</label>
       <br />
       <input
         onKeyPress={(e) => {

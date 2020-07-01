@@ -44,6 +44,19 @@
   color: orange;
   background-color: blanchedalmond;
 }
+
+.createPage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.middle-column {
+  padding-left: 5%;
+  padding-right: 5%;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
 a {
   color: black;
   text-decoration: none;

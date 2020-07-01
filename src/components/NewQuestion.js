@@ -1,13 +1,13 @@
 import React from "react";
 import "../styles.css";
-const NewQuestion = ({ selectedQuestion, select, questionNum, question }) => {
+const NewQuestion = ({ selectedItem, onSelect, questionNum, text }) => {
   return (
     <div>
       <h4
-        className={`${questionNum === selectedQuestion ? "selected" : ""}`}
-        onClick={() => select(questionNum)}
+        className={`${questionNum === selectedItem ? "selected" : ""}`}
+        onClick={() => onSelect(questionNum)}
       >
-        {question}
+        #{questionNum + 1}: {text}
       </h4>
     </div>
   );
