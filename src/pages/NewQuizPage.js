@@ -1,6 +1,6 @@
 import React from "react";
+import NewQuizComponent from "../components/NewQuizComponent";
 import QuizComponent from "../components/QuizComponent";
-import NewQuestion from "../components/NewQuestion";
 import "../styles.css";
 /**
  * const data = {
@@ -101,7 +101,7 @@ class NewQuizPage extends React.Component {
         {this.state.activeAnswers.map((item, i) => {
           return (
             <div key={i}>
-              <NewQuestion
+              <QuizComponent
                 selectedItem={this.state.selectedAnswer}
                 questionNum={i}
                 onSelect={this.selectAnswer}
@@ -143,7 +143,7 @@ class NewQuizPage extends React.Component {
               {this.state.questions.map((item, i) => {
                 return (
                   <div key={i}>
-                    <NewQuestion
+                    <QuizComponent
                       selectedItem={this.state.selectedQuestion}
                       onSelect={this.selectQuestion}
                       questionNum={i}
@@ -153,7 +153,7 @@ class NewQuizPage extends React.Component {
                 );
               })}
               <p>Question</p>
-              <QuizComponent
+              <NewQuizComponent
                 text="add new question"
                 handleAdd={this.addQuestion}
               />
@@ -162,7 +162,7 @@ class NewQuizPage extends React.Component {
             <div className="middle-column">
               {this.state.questions.length ? this.renderAnswers() : ""}
               <p>answer:</p>
-              <QuizComponent
+              <NewQuizComponent
                 text={`new answer for question #${
                   this.state.selectedQuestion + 1
                 }`}
@@ -177,7 +177,10 @@ class NewQuizPage extends React.Component {
                 return <div key={i}> {item}</div>;
               })}
               <p>results</p>
-              <QuizComponent text="add new result" handleAdd={this.addResult} />
+              <NewQuizComponent
+                text="add new result"
+                handleAdd={this.addResult}
+              />
             </div>
           </div>
         </div>
