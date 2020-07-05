@@ -43,7 +43,6 @@ import "../styles.css";
 };
 
    TODO add edit functionality
-   TODO render all quiz components in function
   */
 class NewQuizPage extends React.Component {
   state = {
@@ -62,12 +61,14 @@ class NewQuizPage extends React.Component {
   };
 
   addResult = (result) => {
-    this.setState({ results: [...this.state.results, result] });
+    let { results } = this.state;
+    results = [...results, { header: result }];
+    this.setState({ results });
   };
 
   addQuestion = (questionText) => {
     this.setState({
-      questions: [...this.state.questions, questionText],
+      questions: [...this.state.questions, { description: questionText }],
     });
   };
 
@@ -139,7 +140,7 @@ class NewQuizPage extends React.Component {
     this.setState({ questions, answers, activeAnswers: [] });
   };
 
-  randerColumn = (
+  renderColumn = (
     type,
     selectedItem,
     handleDelete,
@@ -148,6 +149,7 @@ class NewQuizPage extends React.Component {
     text
   ) => {
     type = this.state[`${type}`];
+    console.log(type);
     return (
       <div>
         <div>
@@ -160,7 +162,7 @@ class NewQuizPage extends React.Component {
                   leadsTo={item.val}
                   handleDelete={handleDelete}
                   onSelect={handleSelect}
-                  text={item.description ? item.description : item}
+                  text={item}
                 />
               </div>
             );
@@ -176,6 +178,7 @@ class NewQuizPage extends React.Component {
       </div>
     );
   };
+
   render() {
     return (
       <div className="container">
@@ -204,31 +207,33 @@ class NewQuizPage extends React.Component {
         <div>
           <div className="createPage">
             <div>
-              {this.randerColumn(
+              {this.renderColumn(
                 "questions",
                 this.state.selectedQuestion,
                 this.deleteQuestion,
                 this.selectQuestion,
                 this.addQuestion,
-                "add new question",
-                `new answer for question #${this.state.selectedQuestion + 1}`
+                "add new question"
               )}
             </div>
 
             <div className="middle-column">
               {this.state.selectedQuestion >= 0
-                ? this.randerColumn(
+                ? this.renderColumn(
                     "activeAnswers",
                     this.state.selectedAnswer,
                     this.deleteAnswer,
                     this.selectAnswer,
-                    this.addAnswer
+                    this.addAnswer,
+                    `new answer for question #${
+                      this.state.selectedQuestion + 1
+                    }`
                   )
                 : ""}
             </div>
 
             <div>
-              {this.randerColumn(
+              {this.renderColumn(
                 "results",
                 this.state.selectedResult,
                 this.deleteResult,
@@ -237,6 +242,13 @@ class NewQuizPage extends React.Component {
                 "add new result"
               )}
             </div>
+            <button
+              onClick={() => {
+                console.log(this.state);
+              }}
+            >
+              Send
+            </button>
           </div>
         </div>
       </div>
