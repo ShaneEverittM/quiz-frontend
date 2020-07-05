@@ -43,17 +43,19 @@ import "../styles.css";
 };
 
    TODO add edit functionality
+   TODO refactor quizname into it's own component
   */
 class NewQuizPage extends React.Component {
   state = {
     questions: [],
-    quizName: " ",
+    quizName: "Quiz Title",
     answers: [[]],
     activeAnswers: [],
     results: [],
     selectedQuestion: -1,
     selectedAnswer: -1,
     selectedResult: -1,
+    editQuizNameMode: false,
   };
 
   updateQuizName = (quizName) => {
@@ -119,7 +121,6 @@ class NewQuizPage extends React.Component {
   deleteResult = (i) => {
     let { results, answers } = this.state;
     results.splice(i, 1);
-
     for (let ar of answers) {
       for (let ans of ar)
         if (ans.val === i) {
@@ -137,9 +138,17 @@ class NewQuizPage extends React.Component {
     let { questions, answers } = this.state;
     questions.splice(i, 1);
     answers[i] = [];
-    this.setState({ questions, answers, activeAnswers: [] });
+    this.setState({
+      questions,
+      answers,
+      activeAnswers: [],
+      selectedQuestion: -1,
+    });
   };
 
+  editAnswer = (i) => {
+    let { answers } = this.state;
+  };
   renderColumn = (
     type,
     selectedItem,
@@ -149,7 +158,6 @@ class NewQuizPage extends React.Component {
     text
   ) => {
     type = this.state[`${type}`];
-    console.log(type);
     return (
       <div>
         <div>
@@ -178,29 +186,38 @@ class NewQuizPage extends React.Component {
       </div>
     );
   };
+  renderQuizName = () => {
+    return <div>{this.state.quizName}</div>;
+  };
 
   render() {
     return (
       <div className="container">
         <div className="quiz-title">
           <div>
-            <h2>
-              {this.state.quizName.replace(/\w\S*/g, function (txt) {
-                return (
-                  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-                ); //thank you stack overflow
-              })}
+            <h2
+              onDoubleClick={() => {
+                this.setState({ editQuizNameMode: true });
+              }}
+            >
+              {this.state.editQuizNameMode ? (
+                <div>
+                  <textarea
+                    id="quizName"
+                    value={this.state.quizName}
+                    onChange={(e) => this.updateQuizName(e.target.value)}
+                  />
+                  <button
+                    onClick={() => this.setState({ editQuizNameMode: false })}
+                  >
+                    &#10003;
+                    {/* checkmark */}
+                  </button>
+                </div>
+              ) : (
+                this.renderQuizName()
+              )}
             </h2>
-          </div>
-          <div>
-            <label htmlFor="quizName">First Give your quiz a name!</label>
-            <br />
-            <input
-              type="text"
-              id="quizName"
-              onChange={(e) => this.updateQuizName(e.target.value)}
-            />
-            <br />
           </div>
         </div>
 
@@ -229,7 +246,7 @@ class NewQuizPage extends React.Component {
                       this.state.selectedQuestion + 1
                     }`
                   )
-                : ""}
+                : "add a question to start adding answers"}
             </div>
 
             <div>
@@ -242,15 +259,15 @@ class NewQuizPage extends React.Component {
                 "add new result"
               )}
             </div>
-            <button
-              onClick={() => {
-                console.log(this.state);
-              }}
-            >
-              Send
-            </button>
           </div>
         </div>
+        <button
+          onClick={() => {
+            console.log(this.state);
+          }}
+        >
+          Send
+        </button>
       </div>
     );
   }

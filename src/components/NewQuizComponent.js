@@ -1,27 +1,26 @@
 import React, { useState } from "react";
 
 const NewQuizComponent = ({ text, questionNum, handleAdd }) => {
-  let [questionText, setQuestionText] = useState("");
+  let [newText, setNewText] = useState("");
   const submit = () => {
-    setQuestionText(questionText);
-    if (questionText.trimStart()) {
-      setQuestionText("");
-      handleAdd(questionText, questionNum);
+    setNewText(newText);
+    if (newText.trimStart()) {
+      setNewText("");
+      handleAdd(newText, questionNum);
     }
   };
   return (
     <div>
       <label htmlFor="question">{text}</label>
       <br />
-      <input
+      <textarea
         onKeyPress={(e) => {
           //this may not work on every browser/keyboard combo
           if (e.key.toLowerCase() === "enter") submit();
         }}
-        type="text"
         id="question"
-        value={questionText}
-        onChange={(e) => setQuestionText(e.target.value)}
+        value={newText}
+        onChange={(e) => setNewText(e.target.value)}
       />
       <button
         onClick={() => {
