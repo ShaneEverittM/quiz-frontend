@@ -56,7 +56,11 @@
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
-
+.quiz-title {
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+}
 a {
   color: black;
   text-decoration: none;

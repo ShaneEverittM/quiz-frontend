@@ -1,16 +1,23 @@
 import React from "react";
 import "../styles.css";
-const NewQuestion = ({ selectedItem, onSelect, questionNum, text }) => {
+const QuizComponent = ({
+  handleDelete,
+  selectedItem,
+  onSelect,
+  leadsTo,
+  pos,
+  text,
+}) => {
   return (
     <div>
-      <h4
-        className={`${questionNum === selectedItem ? "selected" : ""}`}
-        onClick={() => onSelect(questionNum)}
-      >
-        #{questionNum + 1}: {text}
-      </h4>
+      <h4 className={`${pos === selectedItem ? "selected" : ""}`}>
+        <div onClick={() => onSelect(pos)}>
+          #{pos + 1}: {text} {leadsTo != null ? `->result #${leadsTo + 1}` : ""}
+        </div>
+      </h4>{" "}
+      <div onClick={() => handleDelete(pos)}>X</div>
     </div>
   );
 };
 
-export default NewQuestion;
+export default QuizComponent;

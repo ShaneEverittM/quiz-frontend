@@ -41,11 +41,9 @@ import "../styles.css";
     { num: 2, resultHeader: "R3", description: "D3" },
   ],
 };
-    TODO refactor QuizComponet
-   TODO make answers selectable
-   TODO add results
-   TODO add delete functionality
+
    TODO add edit functionality
+   TODO render all quiz components in function
   */
 class NewQuizPage extends React.Component {
   state = {
@@ -54,8 +52,9 @@ class NewQuizPage extends React.Component {
     answers: [[]],
     activeAnswers: [],
     results: [],
-    selectedQuestion: 0,
-    selectedAnswer: 0,
+    selectedQuestion: -1,
+    selectedAnswer: -1,
+    selectedResult: -1,
   };
 
   updateQuizName = (quizName) => {
@@ -70,54 +69,117 @@ class NewQuizPage extends React.Component {
     this.setState({
       questions: [...this.state.questions, questionText],
     });
-    console.log("this.state.questions: ", this.state.questions);
   };
 
   addAnswer = (answerText, questionNum) => {
-    console.log("answerText, questionNum: ", answerText, questionNum);
+    let ans = { description: answerText, val: null };
     let { answers } = this.state;
     if (!answers[questionNum]) answers[questionNum] = [];
-    answers[questionNum] = [...answers[questionNum], answerText];
+    answers[questionNum] = [...answers[questionNum], ans];
     this.setState({ answers });
-    console.log("answers: ", answers);
     this.selectQuestion(questionNum);
   };
 
   selectQuestion = (i) => {
     this.setState({
       selectedQuestion: i,
+      selectedAnswer: 0,
       activeAnswers: this.state.answers[i] ? this.state.answers[i] : [],
     });
-
-    console.log("activeAnswers: ", this.state.activeAnswers);
   };
   selectAnswer = (i) => {
-    this.setState({ selectedAnswer: i });
+    this.setState({ selectedAnswer: i, selectedResult: -1 });
   };
-  renderAnswers = () => {
-    return (
-      <div>
-        {console.log("this.state.activeAnswers: ", this.state.activeAnswers)}
-        {this.state.activeAnswers.map((item, i) => {
-          return (
-            <div key={i}>
-              <QuizComponent
-                selectedItem={this.state.selectedAnswer}
-                questionNum={i}
-                onSelect={this.selectAnswer}
-                text={item}
-              />
-            </div>
-          );
-        })}
-      </div>
-    );
+  selectResult = (i) => {
+    this.setState({ selectedResult: i });
+    if (
+      this.state.answers[this.state.selectedQuestion][this.state.selectedAnswer]
+    )
+      this.matchResultsToAnswers(i);
+  };
+  matchResultsToAnswers = (i) => {
+    let { answers } = this.state;
+    answers[this.state.selectedQuestion][this.state.selectedAnswer].val = i;
+    this.setState({ answers });
   };
 
-  render() {
+  onUnload = (e) => {
+    e.preventDefault();
+    e.returnValue = "You will lose your progress if you leave now!";
+  };
+  componentDidMount() {
+    window.addEventListener("beforeunload", this.onUnload);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("beforeunload", this.onUnload);
+  }
+
+  deleteResult = (i) => {
+    let { results, answers } = this.state;
+    results.splice(i, 1);
+
+    for (let ar of answers) {
+      for (let ans of ar)
+        if (ans.val === i) {
+          ans.val = null;
+        }
+    }
+    this.setState({ results, answers });
+  };
+  deleteAnswer = (i) => {
+    let { answers } = this.state;
+    answers[this.state.selectedQuestion].splice(i, 1);
+    this.setState({ answers });
+  };
+  deleteQuestion = (i) => {
+    let { questions, answers } = this.state;
+    questions.splice(i, 1);
+    answers[i] = [];
+    this.setState({ questions, answers, activeAnswers: [] });
+  };
+
+  randerColumn = (
+    type,
+    selectedItem,
+    handleDelete,
+    handleSelect,
+    add,
+    text
+  ) => {
+    type = this.state[`${type}`];
     return (
       <div>
         <div>
+          {type.map((item, i) => {
+            return (
+              <div key={i}>
+                <QuizComponent
+                  selectedItem={selectedItem}
+                  pos={i}
+                  leadsTo={item.val}
+                  handleDelete={handleDelete}
+                  onSelect={handleSelect}
+                  text={item.description ? item.description : item}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div>
+          <NewQuizComponent
+            handleAdd={add}
+            text={text}
+            questionNum={this.state.selectedQuestion}
+          />
+        </div>
+      </div>
+    );
+  };
+  render() {
+    return (
+      <div className="container">
+        <div className="quiz-title">
           <div>
             <h2>
               {this.state.quizName.replace(/\w\S*/g, function (txt) {
@@ -127,60 +189,53 @@ class NewQuizPage extends React.Component {
               })}
             </h2>
           </div>
-
-          <label htmlFor="quizName">First Give your quiz a name!</label>
-          <br />
-          <input
-            type="text"
-            id="quizName"
-            onChange={(e) => this.updateQuizName(e.target.value)}
-          />
-          <br />
+          <div>
+            <label htmlFor="quizName">First Give your quiz a name!</label>
+            <br />
+            <input
+              type="text"
+              id="quizName"
+              onChange={(e) => this.updateQuizName(e.target.value)}
+            />
+            <br />
+          </div>
         </div>
-        <div className="container">
+
+        <div>
           <div className="createPage">
             <div>
-              {this.state.questions.map((item, i) => {
-                return (
-                  <div key={i}>
-                    <QuizComponent
-                      selectedItem={this.state.selectedQuestion}
-                      onSelect={this.selectQuestion}
-                      questionNum={i}
-                      text={item}
-                    />
-                  </div>
-                );
-              })}
-              <p>Question</p>
-              <NewQuizComponent
-                text="add new question"
-                handleAdd={this.addQuestion}
-              />
+              {this.randerColumn(
+                "questions",
+                this.state.selectedQuestion,
+                this.deleteQuestion,
+                this.selectQuestion,
+                this.addQuestion,
+                "add new question",
+                `new answer for question #${this.state.selectedQuestion + 1}`
+              )}
             </div>
 
             <div className="middle-column">
-              {this.state.questions.length ? this.renderAnswers() : ""}
-              <p>answer:</p>
-              <NewQuizComponent
-                text={`new answer for question #${
-                  this.state.selectedQuestion + 1
-                }`}
-                questionNum={this.state.selectedQuestion}
-                handleAdd={this.addAnswer}
-              />
+              {this.state.selectedQuestion >= 0
+                ? this.randerColumn(
+                    "activeAnswers",
+                    this.state.selectedAnswer,
+                    this.deleteAnswer,
+                    this.selectAnswer,
+                    this.addAnswer
+                  )
+                : ""}
             </div>
 
             <div>
-              {" "}
-              {this.state.results.map((item, i) => {
-                return <div key={i}> {item}</div>;
-              })}
-              <p>results</p>
-              <NewQuizComponent
-                text="add new result"
-                handleAdd={this.addResult}
-              />
+              {this.randerColumn(
+                "results",
+                this.state.selectedResult,
+                this.deleteResult,
+                this.selectResult,
+                this.addResult,
+                "add new result"
+              )}
             </div>
           </div>
         </div>

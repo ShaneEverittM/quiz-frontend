@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 
-const QuizComponent = ({ text, questionNum, handleAdd }) => {
+const NewQuizComponent = ({ text, questionNum, handleAdd }) => {
   let [questionText, setQuestionText] = useState("");
   const submit = () => {
-    setQuestionText("");
-    handleAdd(questionText, questionNum);
+    setQuestionText(questionText);
+    if (questionText.trimStart()) {
+      setQuestionText("");
+      handleAdd(questionText, questionNum);
+    }
   };
   return (
     <div>
@@ -12,7 +15,7 @@ const QuizComponent = ({ text, questionNum, handleAdd }) => {
       <br />
       <input
         onKeyPress={(e) => {
-          //this may noy work on every browser/keyboard combo
+          //this may not work on every browser/keyboard combo
           if (e.key.toLowerCase() === "enter") submit();
         }}
         type="text"
@@ -31,4 +34,4 @@ const QuizComponent = ({ text, questionNum, handleAdd }) => {
   );
 };
 
-export default QuizComponent;
+export default NewQuizComponent;
