@@ -36,25 +36,31 @@ const QuizComponent = ({
       </div>
     );
   };
+
+  const renderMenu = () => {
+    return (
+      <div className="inline">
+        <span className="container-item" onClick={() => handleDelete(pos)}>
+          🗑️
+        </span>
+        <span className="container-item" onClick={() => setEditMode(!editMode)}>
+          ✏️
+        </span>
+      </div>
+    );
+  };
   const display = () => {
     return (
       <div>
-        {pos === selectedItem ? (
-          <div>
-            <div onClick={() => handleDelete(pos)}>🗑️</div>
-            <div onClick={() => setEditMode(!editMode)}>✏️</div>
-          </div>
-        ) : (
-          ""
-        )}
-
-        <div onClick={() => onSelect(pos)}>
-          <h4 className={`${pos === selectedItem ? "selected" : ""}`}>
+        <div className="container" onClick={() => onSelect(pos)}>
+          <div className={`${pos === selectedItem ? "selected" : ""}`}>
             #{pos + 1}: {text.header ? text.header : text.description}{" "}
-            {leadsTo != null ? `->result #${leadsTo + 1}` : ""}
-          </h4>{" "}
-          <h6>{text.header ? text.description : ""}</h6>
+            {leadsTo != null ? `→ result #${leadsTo + 1}` : ""}
+            {pos === selectedItem ? renderMenu() : ""}
+          </div>
         </div>
+
+        <span>{text.header ? text.description : ""}</span>
       </div>
     );
   };

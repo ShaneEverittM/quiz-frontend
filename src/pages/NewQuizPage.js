@@ -84,23 +84,25 @@ class NewQuizPage extends React.Component {
     this.selectQuestion(questionNum);
   };
 
-  selectQuestion = (i) => {
+  selectQuestion = (selected) => {
     this.setState({
-      selectedQuestion: i,
+      selectedQuestion: selected,
       selectedAnswer: 0,
-      activeAnswers: this.state.answers[i] ? this.state.answers[i] : [],
+      activeAnswers: this.state.answers[selected]
+        ? this.state.answers[selected]
+        : [],
     });
   };
-  selectAnswer = (i) => {
-    this.setState({ selectedAnswer: i, selectedResult: -1 });
+  selectAnswer = (selected) => {
+    this.setState({ selectedAnswer: selected, selectedResult: -1 });
   };
-  selectResult = (i) => {
-    this.setState({ selectedResult: i });
+  selectResult = (selected) => {
+    this.setState({ selectedResult: selected });
     if (
       this.state.answers[this.state.selectedQuestion] &&
       this.state.answers[this.state.selectedQuestion][this.state.selectedAnswer]
     )
-      this.matchResultsToAnswers(i);
+      this.matchResultsToAnswers(selected);
   };
   matchResultsToAnswers = (i) => {
     let { answers } = this.state;
@@ -294,6 +296,7 @@ class NewQuizPage extends React.Component {
           </div>
         </div>
         <button
+          style={{ margin: "auto", width: "50%" }}
           onClick={() => {
             console.log(this.state);
           }}

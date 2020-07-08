@@ -13,7 +13,7 @@ const NewQuizComponent = ({
 
   const submit = () => {
     console.log("description: ", description);
-    if (description.trimStart()) {
+    if ((description && description.trimStart()) || resultHeader) {
       setDescription("");
       setHeader("");
       handleAdd(description, resultHeader);
