@@ -48,7 +48,7 @@ import "../styles.css";
 class NewQuizPage extends React.Component {
   state = {
     questions: [],
-    quizName: "Quiz Title",
+    quizName: "",
     answers: [[]],
     activeAnswers: [],
     results: [],
@@ -62,9 +62,9 @@ class NewQuizPage extends React.Component {
     this.setState({ quizName });
   };
 
-  addResult = (result) => {
+  addResult = (description, header) => {
     let { results } = this.state;
-    results = [...results, { header: result }];
+    results = [...results, { description, header }];
     this.setState({ results });
   };
 
@@ -74,7 +74,8 @@ class NewQuizPage extends React.Component {
     });
   };
 
-  addAnswer = (answerText, questionNum) => {
+  addAnswer = (answerText) => {
+    let questionNum = this.state.selectedQuestion;
     let ans = { description: answerText, val: null };
     let { answers } = this.state;
     if (!answers[questionNum]) answers[questionNum] = [];
@@ -96,6 +97,7 @@ class NewQuizPage extends React.Component {
   selectResult = (i) => {
     this.setState({ selectedResult: i });
     if (
+      this.state.answers[this.state.selectedQuestion] &&
       this.state.answers[this.state.selectedQuestion][this.state.selectedAnswer]
     )
       this.matchResultsToAnswers(i);
@@ -106,17 +108,17 @@ class NewQuizPage extends React.Component {
     this.setState({ answers });
   };
 
-  onUnload = (e) => {
-    e.preventDefault();
-    e.returnValue = "You will lose your progress if you leave now!";
-  };
-  componentDidMount() {
-    window.addEventListener("beforeunload", this.onUnload);
-  }
+  // onUnload = (e) => {
+  //   e.preventDefault();
+  //   e.returnValue = "You will lose your progress if you leave now!";
+  // };
+  // componentDidMount() {
+  //   window.addEventListener("beforeunload", this.onUnload);
+  // }
 
-  componentWillUnmount() {
-    window.removeEventListener("beforeunload", this.onUnload);
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener("beforeunload", this.onUnload);
+  // }
 
   deleteResult = (i) => {
     let { results, answers } = this.state;
@@ -146,22 +148,42 @@ class NewQuizPage extends React.Component {
     });
   };
 
-  editAnswer = (i) => {
-    let { answers } = this.state;
+  editQuestion = (newQuestion) => {
+    let { questions } = this.state;
+    questions[this.state.selectedQuestion] = { description: newQuestion };
+    this.setState({ questions });
   };
+  editAnswer = (newAnswer) => {
+    let { answers } = this.state;
+    answers[this.state.selectedQuestion][this.state.selectedAnswer] = {
+      description: newAnswer,
+    };
+    this.setState({
+      answers,
+      activeAnswers: answers[this.state.selectedAnswer],
+    });
+  };
+  editResult = (description, header) => {
+    let { results } = this.state;
+    results[this.state.selectedResult] = { description, header };
+    this.setState({ results });
+    console.log("results: ", results);
+  };
+
   renderColumn = (
     type,
     selectedItem,
     handleDelete,
     handleSelect,
     add,
-    text
+    text,
+    edit
   ) => {
-    type = this.state[`${type}`];
+    let toDisplay = this.state[`${type}`];
     return (
       <div>
         <div>
-          {type.map((item, i) => {
+          {toDisplay.map((item, i) => {
             return (
               <div key={i}>
                 <QuizComponent
@@ -171,6 +193,8 @@ class NewQuizPage extends React.Component {
                   handleDelete={handleDelete}
                   onSelect={handleSelect}
                   text={item}
+                  handleEdit={edit}
+                  type={type}
                 />
               </div>
             );
@@ -180,14 +204,19 @@ class NewQuizPage extends React.Component {
           <NewQuizComponent
             handleAdd={add}
             text={text}
-            questionNum={this.state.selectedQuestion}
+            type={type}
+            buttonText="Add"
           />
         </div>
       </div>
     );
   };
   renderQuizName = () => {
-    return <div>{this.state.quizName}</div>;
+    return (
+      <div>
+        {this.state.quizName ? this.state.quizName : "Double Click to edit"}
+      </div>
+    );
   };
 
   render() {
@@ -230,7 +259,8 @@ class NewQuizPage extends React.Component {
                 this.deleteQuestion,
                 this.selectQuestion,
                 this.addQuestion,
-                "add new question"
+                "add new question",
+                this.editQuestion
               )}
             </div>
 
@@ -244,7 +274,8 @@ class NewQuizPage extends React.Component {
                     this.addAnswer,
                     `new answer for question #${
                       this.state.selectedQuestion + 1
-                    }`
+                    }`,
+                    this.editAnswer
                   )
                 : "add a question to start adding answers"}
             </div>
@@ -256,7 +287,8 @@ class NewQuizPage extends React.Component {
                 this.deleteResult,
                 this.selectResult,
                 this.addResult,
-                "add new result"
+                "description",
+                this.editResult
               )}
             </div>
           </div>
