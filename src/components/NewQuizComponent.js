@@ -26,7 +26,7 @@ const NewQuizComponent = ({
         <label htmlFor="header">Title</label>
         <input
           type="text"
-          value={resultHeader}
+          value={resultHeader ? resultHeader : ""}
           onChange={(e) => setHeader(e.target.value)}
         />
       </div>

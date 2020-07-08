@@ -214,7 +214,7 @@ class NewQuizPage extends React.Component {
   renderQuizName = () => {
     return (
       <div>
-        {this.state.quizName ? this.state.quizName : "Double Click to edit"}
+        {this.state.quizName ? this.state.quizName : "Double Click to Edit"}
       </div>
     );
   };
@@ -277,7 +277,7 @@ class NewQuizPage extends React.Component {
                     }`,
                     this.editAnswer
                   )
-                : "add a question to start adding answers"}
+                : "add/select a question to start adding answers"}
             </div>
 
             <div>
