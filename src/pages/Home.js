@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CategoryPreview from "../components/CategoryPreview";
 import "./Home.css";
+import { getQuizPreviews } from "../api/api.js";
 
 let quiz_list = ["quiz1", "quiz2", "quiz3", "quiz1", "quiz2", "quiz3"];
 const Home = () => {
+  useEffect(() => {
+    quiz_list = getQuizPreviews();
+  });
   return (
     <div className="home-container">
       <CategoryPreview

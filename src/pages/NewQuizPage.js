@@ -58,7 +58,6 @@ class NewQuizPage extends React.Component {
   };
 
   selectQuestion = (selected) => {
-    console.log("running");
     this.setState({
       selectedQuestion: selected,
       selectedAnswer: 0,
@@ -201,7 +200,6 @@ class NewQuizPage extends React.Component {
       quiz: {
         name: this.state.quizName,
         description: this.state.quizDescription,
-        num_questions: this.state.questions.length,
       },
       questions: this.state.questions,
       answers: this.state.answers,
@@ -213,7 +211,7 @@ class NewQuizPage extends React.Component {
     return (
       <div className="container">
         <Prompt
-          when={this.inProgress()}
+          when={Boolean(this.inProgress())}
           message="You'll lose your progress if you leave now!"
         />
         <div className="quiz-title">

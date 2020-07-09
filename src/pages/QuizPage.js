@@ -10,7 +10,7 @@ class QuizPage extends React.Component {
     description: "loading",
     questions: [],
     curQuestion: 0,
-    numQuestions: 2,
+    numQuestions: 0,
     redirectToResults: false,
     responses: [],
     data: [],
@@ -20,12 +20,12 @@ class QuizPage extends React.Component {
 
   componentDidMount() {
     console.log(this.props.location.pathname.substring(10));
-    this.testAPI();
+    this.callApi();
   }
 
-  //TODO get question list from backend, display one at a time
+  //TODO redirct to 404 if not data
 
-  testAPI = async () => {
+  callApi = async () => {
     let { data } = await getQuiz(this.props.location.pathname.substring(10));
     console.log("data: ", data);
 
@@ -103,6 +103,7 @@ class QuizPage extends React.Component {
       <div className="quizPage-container">
         <h3>Title: {this.state.title}</h3>
         <p>This is a quiz:{this.state.description}</p>
+        <p>{`${this.state.curQuestion}/${this.state.numQuestions}`}</p>
         {this.state.questions.map((questionText, i) => {
           return (
             <div ref={this.scrollRef} key={i}>

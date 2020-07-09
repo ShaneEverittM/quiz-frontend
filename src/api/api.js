@@ -22,4 +22,14 @@ const getQuiz = async (id) => {
   }
 };
 
-export { getQuiz, submitQuiz };
+const getQuizPreviews = async () => {
+  try {
+    let res = await axios.get(`${serverURL}`);
+    return res;
+  } catch (e) {
+    console.log("error: ", e);
+    return [];
+  }
+};
+
+export { getQuizPreviews, getQuiz, submitQuiz };
