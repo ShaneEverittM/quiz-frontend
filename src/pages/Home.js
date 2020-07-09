@@ -2,7 +2,7 @@ import React from "react";
 import CategoryPreview from "../components/CategoryPreview";
 import "./Home.css";
 
-let quiz_list = ["quiz1", "quiz2", "quiz3", "quiz4"];
+let quiz_list = ["quiz1", "quiz2", "quiz3", "quiz1", "quiz2", "quiz3"];
 const Home = () => {
   return (
     <div className="home-container">
