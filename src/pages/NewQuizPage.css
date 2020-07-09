@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+.quiz-title {
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+}
+.createPage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.middle-column {
+  padding-left: 5%;
+  padding-right: 5%;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+span {
+  transition-duration: 0.3s;
+}
+span:hover {
+  transform: scale(1.5);
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import NewQuizComponent from "../components/NewQuizComponent";
 import QuizComponent from "../components/QuizComponent";
-import "../styles.css";
+import "./NewQuizPage.css";
 /**
  * const data = {
   quiz: { id: 1, name: "test", num_questions: 5 },

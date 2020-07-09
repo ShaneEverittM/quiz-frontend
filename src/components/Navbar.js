@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "../styles.css";
+import "./Navbar.css";
 
 const Navbar = () => {
   return (
@@ -11,7 +11,7 @@ const Navbar = () => {
         className="navbar-content"
         to="/"
       >
-        This is a navbar
+        Home
       </NavLink>
       <NavLink
         activeClassName="current-tab"

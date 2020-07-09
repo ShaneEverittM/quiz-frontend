@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NewQuizComponent from "./NewQuizComponent";
-import "../styles.css";
+import "./QuizComponent.css";
 
 const QuizComponent = ({
   handleDelete,
@@ -28,11 +28,6 @@ const QuizComponent = ({
           head={text.header}
           buttonText="Update"
         />
-        <div
-          onClick={() => {
-            setEditMode(!editMode);
-          }}
-        ></div>
       </div>
     );
   };
@@ -40,10 +35,20 @@ const QuizComponent = ({
   const renderMenu = () => {
     return (
       <div className="inline">
-        <span className="container-item" onClick={() => handleDelete(pos)}>
+        <span
+          role="img"
+          aria-label="trash"
+          className="container-item"
+          onClick={() => handleDelete(pos)}
+        >
           🗑️
         </span>
-        <span className="container-item" onClick={() => setEditMode(!editMode)}>
+        <span
+          role="img"
+          aria-label="pencil"
+          className="container-item"
+          onClick={() => setEditMode(!editMode)}
+        >
           ✏️
         </span>
       </div>
@@ -52,7 +57,7 @@ const QuizComponent = ({
   const display = () => {
     return (
       <div>
-        <div className="container" onClick={() => onSelect(pos)}>
+        <div className="quiz-component-container" onClick={() => onSelect(pos)}>
           <div className={`${pos === selectedItem ? "selected" : ""}`}>
             #{pos + 1}: {text.header ? text.header : text.description}{" "}
             {leadsTo != null ? `→ result #${leadsTo + 1}` : ""}

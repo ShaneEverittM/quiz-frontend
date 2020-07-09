@@ -1,0 +1,16 @@
+.inline {
+  display: inline-flex;
+}
+.container-item {
+  display: inline;
+}
+.quiz-component-container {
+  display: flex;
+  flex-direction: column;
+}
+.selected {
+  color: black;
+  display: flex;
+  border: 1px solid black;
+  justify-content: space-between;
+}
