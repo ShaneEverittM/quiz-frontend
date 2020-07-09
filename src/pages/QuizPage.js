@@ -19,19 +19,21 @@ class QuizPage extends React.Component {
   scrollRef = React.createRef();
 
   componentDidMount() {
+    console.log(this.props.location.pathname.substring(10));
     this.testAPI();
   }
 
   //TODO get question list from backend, display one at a time
 
   testAPI = async () => {
-    let { data } = await getQuiz(6);
+    let { data } = await getQuiz(this.props.location.pathname.substring(10));
     console.log("data: ", data);
-    let title = data.quiz.name;
+
+    let { description, name } = data.quiz;
 
     let numQuestions = data.questions.length;
 
-    this.setState({ data, title, numQuestions });
+    this.setState({ data, title: name, numQuestions, description });
   };
   renderNextQuestion = () => {
     let { curQuestion } = this.state;

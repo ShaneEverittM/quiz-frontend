@@ -13,10 +13,8 @@ const ResultPage = (props) => {
     for (let answer of responses) {
       computer[answer]++;
       if (computer[answer] > mode) mode = answer;
-      console.log("answer: ", answer);
     }
-    console.log("mode: ", mode);
-    console.log("computer: ", computer);
+
     return (
       <div style={{ marginTop: "80px" }}>
         <h1>{possibleResults[mode].header}</h1>
