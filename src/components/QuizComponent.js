@@ -61,10 +61,12 @@ const QuizComponent = ({
   const display = () => {
     return (
       <div>
-        <div className="quiz-component-container" onClick={() => onSelect(pos)}>
+        <div className="quiz-component-container">
           <div className={` ${pos === selectedItem ? "selected" : ""}`}>
-            #{pos + 1}: {text.header ? text.header : text.description}{" "}
-            {leadsTo != null ? `→ result #${leadsTo + 1}` : ""}
+            <div className="selectable" onClick={() => onSelect(pos)}>
+              #{pos + 1}: {text.header ? text.header : text.description}{" "}
+              {leadsTo != null ? `→ result #${leadsTo + 1}` : ""}
+            </div>
             {pos === selectedItem ? renderMenu() : ""}
           </div>
           <span className>{text.header ? text.description : ""}</span>

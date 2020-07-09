@@ -85,6 +85,7 @@ class NewQuizPage extends React.Component {
   };
 
   selectQuestion = (selected) => {
+    console.log("running");
     this.setState({
       selectedQuestion: selected,
       selectedAnswer: 0,
@@ -280,6 +281,7 @@ class NewQuizPage extends React.Component {
                     this.editAnswer
                   )
                 : "add/select a question to start adding answers"}
+              {console.log(this.state.selectedQuestion)}
             </div>
 
             <div>
