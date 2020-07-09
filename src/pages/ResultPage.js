@@ -3,7 +3,6 @@ import React from "react";
 const ResultPage = (props) => {
   const computeResults = () => {
     let possibleResults = props.location.state.results;
-    console.log("possibleResults: ", possibleResults);
 
     let responses = props.location.state.responses;
     let computer = new Array(possibleResults.length).fill(0);

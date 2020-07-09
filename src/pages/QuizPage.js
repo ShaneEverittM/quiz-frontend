@@ -19,7 +19,6 @@ class QuizPage extends React.Component {
   scrollRef = React.createRef();
 
   componentDidMount() {
-    console.log(this.props.location.pathname.substring(10));
     this.callApi();
   }
 
@@ -27,7 +26,7 @@ class QuizPage extends React.Component {
 
   callApi = async () => {
     let { data } = await getQuiz(this.props.location.pathname.substring(10));
-    console.log("data: ", data);
+    // console.log("data: ", data);
 
     let { description, name } = data.quiz;
 

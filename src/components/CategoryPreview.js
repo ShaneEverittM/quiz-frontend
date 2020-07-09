@@ -8,7 +8,6 @@ let CategoryPreview = ({ quizList, categoryName }) => {
     <div>
       <p className="quiz-category">{categoryName}</p>
       <div className="quiz-preview">
-        {console.log(" quizList: ", quizList)}
         {quizList.map((quizObj, i) => {
           return (
             <Link

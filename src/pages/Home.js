@@ -3,13 +3,17 @@ import CategoryPreview from "../components/CategoryPreview";
 import "./Home.css";
 import { getQuizPreviews } from "../api/api.js";
 
-let quiz_list = ["quiz1", "quiz2", "quiz3", "quiz1", "quiz2", "quiz3"];
+/**
+ TODO style errything
+ TODO display description on create page
+TODO create browse page
+TODO create search
+ */
 const Home = () => {
   let [quizzes, setQuizzes] = useState([]);
   useEffect(() => {
     async function fetchData() {
       const response = await getQuizPreviews();
-      console.log("response: ", response);
       setQuizzes(response.data);
     }
     fetchData();

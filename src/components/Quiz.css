@@ -3,9 +3,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 300px;
+  width: 400px;
   height: 100px;
   margin-top: 2%;
-  padding-left: 2%;
+  margin-left: 15px;
   align-items: center;
 }

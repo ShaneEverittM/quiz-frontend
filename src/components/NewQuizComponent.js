@@ -12,7 +12,6 @@ const NewQuizComponent = ({
   let [resultHeader, setHeader] = useState(head);
 
   const submit = () => {
-    console.log("description: ", description);
     if ((description && description.trimStart()) || resultHeader) {
       setDescription("");
       setHeader("");

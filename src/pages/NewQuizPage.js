@@ -144,7 +144,6 @@ class NewQuizPage extends React.Component {
     let { results } = this.state;
     results[this.state.selectedResult] = { description, header };
     this.setState({ results });
-    console.log("results: ", results);
   };
 
   renderColumn = (
@@ -205,6 +204,21 @@ class NewQuizPage extends React.Component {
       answers: this.state.answers,
       results: this.state.results,
     };
+  };
+  submit = () => {
+    submitQuiz(this.packData());
+    this.setState({
+      questions: [],
+      quizName: "",
+      quizDescription: "",
+      answers: [[]],
+      activeAnswers: [],
+      results: [],
+      selectedQuestion: -1,
+      selectedAnswer: -1,
+      selectedResult: -1,
+      editQuizNameMode: false,
+    });
   };
 
   render() {
@@ -293,7 +307,7 @@ class NewQuizPage extends React.Component {
         <button
           className="submit-button"
           onClick={() => {
-            submitQuiz(this.packData());
+            this.submit();
           }}
         >
           Submit
