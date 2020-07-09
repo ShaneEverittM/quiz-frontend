@@ -21,7 +21,7 @@ const QuizComponent = ({
     return (
       <div>
         <NewQuizComponent
-          text="edit"
+          text="Edit"
           handleAdd={onEditSubmit}
           type={type}
           desc={text.description}
@@ -38,19 +38,15 @@ const QuizComponent = ({
         <span
           role="img"
           aria-label="trash"
-          className="container-item"
-          id="icon"
-          className="icon"
+          className="container-item icon"
           onClick={() => handleDelete(pos)}
         >
           🗑️
         </span>
         <span
           role="img"
-          id="icon"
           aria-label="pencil"
-          className="container-item"
-          className="icon"
+          className="container-item icon"
           onClick={() => setEditMode(!editMode)}
         >
           ✏️

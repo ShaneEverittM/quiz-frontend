@@ -129,7 +129,7 @@ class QuizPage extends React.Component {
     responses[questionNum] = data.answers[questionNum][answerPos].val;
     this.setState({ responses });
     if (questionNum === this.state.curQuestion - 1) this.renderNextQuestion();
-    if (data.questions.length === this.state.curQuestion)
+    if (data.questions.length === this.state.responses.length)
       this.setState({ resultButton: true });
   };
 

@@ -20,6 +20,10 @@ const NewQuizComponent = ({
     }
   };
 
+  const enterToSubmit = (e) => {
+    //this may not work on every browser/keyboard combo
+    if (e.key.toLowerCase() === "enter") submit();
+  };
   const resultInput = () => {
     return (
       <div className="input-container">
@@ -28,6 +32,9 @@ const NewQuizComponent = ({
           type="text"
           value={resultHeader ? resultHeader : ""}
           onChange={(e) => setHeader(e.target.value)}
+          onKeyPress={(e) => {
+            enterToSubmit(e);
+          }}
         />
       </div>
     );
@@ -38,8 +45,7 @@ const NewQuizComponent = ({
         <label htmlFor="input">{text}</label>
         <textarea
           onKeyPress={(e) => {
-            //this may not work on every browser/keyboard combo
-            if (e.key.toLowerCase() === "enter") submit();
+            enterToSubmit(e);
           }}
           id="input"
           value={description}

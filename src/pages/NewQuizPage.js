@@ -1,7 +1,10 @@
 import React from "react";
+import { Prompt } from "react-router-dom";
 import NewQuizComponent from "../components/NewQuizComponent";
 import QuizComponent from "../components/QuizComponent";
+
 import "./NewQuizPage.css";
+
 /**
  * const data = {
   quiz: { id: 1, name: "test", num_questions: 5 },
@@ -61,6 +64,9 @@ class NewQuizPage extends React.Component {
   updateQuizName = (quizName) => {
     this.setState({ quizName });
   };
+  inProgress = () => {
+    return this.state.questions.length || this.state.results.length;
+  };
 
   addResult = (description, header) => {
     let { results } = this.state;
@@ -111,17 +117,19 @@ class NewQuizPage extends React.Component {
     this.setState({ answers });
   };
 
-  // onUnload = (e) => {
-  //   e.preventDefault();
-  //   e.returnValue = "You will lose your progress if you leave now!";
-  // };
-  // componentDidMount() {
-  //   window.addEventListener("beforeunload", this.onUnload);
-  // }
+  onUnload = (e) => {
+    if (this.inProgress) {
+      e.preventDefault();
+      e.returnValue = "You will lose your progress if you leave now!";
+    }
+  };
+  componentDidMount() {
+    window.addEventListener("beforeunload", this.onUnload);
+  }
 
-  // componentWillUnmount() {
-  //   window.removeEventListener("beforeunload", this.onUnload);
-  // }
+  componentWillUnmount() {
+    window.removeEventListener("beforeunload", this.onUnload);
+  }
 
   deleteResult = (i) => {
     let { results, answers } = this.state;
@@ -225,6 +233,10 @@ class NewQuizPage extends React.Component {
   render() {
     return (
       <div className="container">
+        <Prompt
+          when={this.inProgress()}
+          message="You'll lose your progress if you leave now!"
+        />
         <div className="quiz-title">
           <div>
             <h2
@@ -262,7 +274,7 @@ class NewQuizPage extends React.Component {
                 this.deleteQuestion,
                 this.selectQuestion,
                 this.addQuestion,
-                "add new question",
+                "Add New Question",
                 this.editQuestion
               )}
             </div>
@@ -275,13 +287,12 @@ class NewQuizPage extends React.Component {
                     this.deleteAnswer,
                     this.selectAnswer,
                     this.addAnswer,
-                    `new answer for question #${
+                    `New Answer for Question #${
                       this.state.selectedQuestion + 1
                     }`,
                     this.editAnswer
                   )
-                : "add/select a question to start adding answers"}
-              {console.log(this.state.selectedQuestion)}
+                : "Add/Select a Question to Start Adding Answers"}
             </div>
 
             <div>
@@ -291,19 +302,19 @@ class NewQuizPage extends React.Component {
                 this.deleteResult,
                 this.selectResult,
                 this.addResult,
-                "description",
+                "Description",
                 this.editResult
               )}
             </div>
           </div>
         </div>
         <button
-          style={{ margin: "auto", width: "50%" }}
+          className="submit-button"
           onClick={() => {
             console.log(this.state);
           }}
         >
-          Send
+          Submit
         </button>
       </div>
     );
