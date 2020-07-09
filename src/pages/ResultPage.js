@@ -9,7 +9,7 @@ const ResultPage = (props) => {
     let computer = new Array(possibleResults.length).fill(0);
 
     let mode = 0;
-    //TODO fix NAN
+
     for (let answer of responses) {
       computer[answer]++;
       if (computer[answer] > mode) mode = answer;
