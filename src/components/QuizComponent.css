@@ -7,10 +7,18 @@
 .quiz-component-container {
   display: flex;
   flex-direction: column;
+  padding-bottom: 10px;
 }
 .selected {
   color: black;
   display: flex;
   border: 1px solid black;
   justify-content: space-between;
+}
+
+.icon {
+  transition-duration: 0.3s;
+}
+.icon:hover {
+  transform: scale(1.5);
 }

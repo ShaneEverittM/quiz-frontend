@@ -39,14 +39,18 @@ const QuizComponent = ({
           role="img"
           aria-label="trash"
           className="container-item"
+          id="icon"
+          className="icon"
           onClick={() => handleDelete(pos)}
         >
           🗑️
         </span>
         <span
           role="img"
+          id="icon"
           aria-label="pencil"
           className="container-item"
+          className="icon"
           onClick={() => setEditMode(!editMode)}
         >
           ✏️
@@ -58,14 +62,13 @@ const QuizComponent = ({
     return (
       <div>
         <div className="quiz-component-container" onClick={() => onSelect(pos)}>
-          <div className={`${pos === selectedItem ? "selected" : ""}`}>
+          <div className={` ${pos === selectedItem ? "selected" : ""}`}>
             #{pos + 1}: {text.header ? text.header : text.description}{" "}
             {leadsTo != null ? `→ result #${leadsTo + 1}` : ""}
             {pos === selectedItem ? renderMenu() : ""}
           </div>
+          <span>{text.header ? text.description : ""}</span>
         </div>
-
-        <span>{text.header ? text.description : ""}</span>
       </div>
     );
   };

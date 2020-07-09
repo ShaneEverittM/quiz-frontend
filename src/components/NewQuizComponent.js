@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "./NewQuizComponent.css";
 const NewQuizComponent = ({
   text,
   handleAdd,
@@ -22,7 +22,7 @@ const NewQuizComponent = ({
 
   const resultInput = () => {
     return (
-      <div>
+      <div className="input-container">
         <label htmlFor="header">Title</label>
         <input
           type="text"
@@ -34,19 +34,19 @@ const NewQuizComponent = ({
   };
   const standardInput = () => {
     return (
-      <div>
-        <label htmlFor="question">{text}</label>
-        <br />
+      <div className="input-container">
+        <label htmlFor="input">{text}</label>
         <textarea
           onKeyPress={(e) => {
             //this may not work on every browser/keyboard combo
             if (e.key.toLowerCase() === "enter") submit();
           }}
-          id="question"
+          id="input"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         <button
+          className="add-button"
           onClick={() => {
             submit();
           }}

@@ -20,9 +20,3 @@
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
-span {
-  transition-duration: 0.3s;
-}
-span:hover {
-  transform: scale(1.5);
-}

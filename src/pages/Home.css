@@ -1,3 +1,12 @@
 .home-container {
   margin-top: 80px;
+  margin-left: 2%;
+}
+
+.quiz-category::before {
+  content: " ";
+  position: absolute;
+  border-bottom: 1px solid #ccc; /*use this to adjust underlin color and size*/
+  width: 75%; /*use this to adjust underline width*/
+  height: 1.1em; /*use this to adjust underline position*/
 }
