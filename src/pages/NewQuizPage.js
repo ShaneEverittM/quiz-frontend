@@ -1,54 +1,21 @@
 import React from "react";
+import { Prompt } from "react-router-dom";
 import NewQuizComponent from "../components/NewQuizComponent";
 import QuizComponent from "../components/QuizComponent";
+import { submitQuiz } from "../api/api.js";
 import "./NewQuizPage.css";
-/**
- * const data = {
-  quiz: { id: 1, name: "test", num_questions: 5 },
-  questions: [
-    { id: 1, description: "q1n", qz_id: 1 },
-    { id: 2, description: "q2", qz_id: 1 },
-    { id: 3, description: "q3", qz_id: 1 },
-    { id: 4, description: "q4", qz_id: 1 },
-    { id: 5, description: "q5", qz_id: 1 },
-  ],
-  answers: [
-    [
-      { id: 1, description: "a1", val: 0, q_id: 1 },
-      { id: 1, description: "a2", val: 1, q_id: 1 },
-      { id: 1, description: "a1", val: 2, q_id: 1 },
-      { id: 1, description: "a2", val: 1, q_id: 1 },
-    ],
-    [
-      { id: 2, description: "a2", val: 1, q_id: 2 },
-      { id: 2, description: "a2", val: 2, q_id: 2 },
-      { id: 2, description: "a2", val: 1, q_id: 2 },
-      { id: 2, description: "a2", val: 0, q_id: 2 },
-    ],
-    [
-      { id: 3, description: "a3", val: 1, q_id: 3 },
-      { id: 3, description: "a3", val: 2, q_id: 3 },
-    ],
-    [
-      { id: 4, description: "a4", val: 2, q_id: 4 },
-      { id: 4, description: "a4", val: 0, q_id: 4 },
-    ],
-    [{ id: 5, description: "a5", val: 1, q_id: 5 }],
-  ],
-  results: [
-    { num: 0, resultHeader: "R1", description: "D1" },
-    { num: 1, resultHeader: "R2", description: "D2" },
-    { num: 2, resultHeader: "R3", description: "D3" },
-  ],
-};
 
-   TODO add edit functionality
+/**
+ TODO clear form and display message on submit  
+
+
    TODO refactor quizname into it's own component
   */
 class NewQuizPage extends React.Component {
   state = {
     questions: [],
     quizName: "",
+    quizDescription: "",
     answers: [[]],
     activeAnswers: [],
     results: [],
@@ -58,8 +25,14 @@ class NewQuizPage extends React.Component {
     editQuizNameMode: false,
   };
 
-  updateQuizName = (quizName) => {
-    this.setState({ quizName });
+  updateQuizName = (text) => {
+    this.setState({ quizName: text });
+  };
+  updateQuizDesc = (text) => {
+    this.setState({ quizDescription: text });
+  };
+  inProgress = () => {
+    return this.state.questions.length || this.state.results.length;
   };
 
   addResult = (description, header) => {
@@ -110,17 +83,19 @@ class NewQuizPage extends React.Component {
     this.setState({ answers });
   };
 
-  // onUnload = (e) => {
-  //   e.preventDefault();
-  //   e.returnValue = "You will lose your progress if you leave now!";
-  // };
-  // componentDidMount() {
-  //   window.addEventListener("beforeunload", this.onUnload);
-  // }
+  onUnload = (e) => {
+    if (this.inProgress) {
+      e.preventDefault();
+      e.returnValue = "You will lose your progress if you leave now!";
+    }
+  };
+  componentDidMount() {
+    window.addEventListener("beforeunload", this.onUnload);
+  }
 
-  // componentWillUnmount() {
-  //   window.removeEventListener("beforeunload", this.onUnload);
-  // }
+  componentWillUnmount() {
+    window.removeEventListener("beforeunload", this.onUnload);
+  }
 
   deleteResult = (i) => {
     let { results, answers } = this.state;
@@ -169,7 +144,6 @@ class NewQuizPage extends React.Component {
     let { results } = this.state;
     results[this.state.selectedResult] = { description, header };
     this.setState({ results });
-    console.log("results: ", results);
   };
 
   renderColumn = (
@@ -220,10 +194,40 @@ class NewQuizPage extends React.Component {
       </div>
     );
   };
+  packData = () => {
+    return {
+      quiz: {
+        name: this.state.quizName,
+        description: this.state.quizDescription,
+      },
+      questions: this.state.questions,
+      answers: this.state.answers,
+      results: this.state.results,
+    };
+  };
+  submit = () => {
+    submitQuiz(this.packData());
+    this.setState({
+      questions: [],
+      quizName: "",
+      quizDescription: "",
+      answers: [[]],
+      activeAnswers: [],
+      results: [],
+      selectedQuestion: -1,
+      selectedAnswer: -1,
+      selectedResult: -1,
+      editQuizNameMode: false,
+    });
+  };
 
   render() {
     return (
       <div className="container">
+        <Prompt
+          when={Boolean(this.inProgress())}
+          message="You'll lose your progress if you leave now!"
+        />
         <div className="quiz-title">
           <div>
             <h2
@@ -237,6 +241,11 @@ class NewQuizPage extends React.Component {
                     id="quizName"
                     value={this.state.quizName}
                     onChange={(e) => this.updateQuizName(e.target.value)}
+                  />
+                  <textarea
+                    id="quizDesc"
+                    value={this.state.quizDescription}
+                    onChange={(e) => this.updateQuizDesc(e.target.value)}
                   />
                   <button
                     onClick={() => this.setState({ editQuizNameMode: false })}
@@ -261,7 +270,7 @@ class NewQuizPage extends React.Component {
                 this.deleteQuestion,
                 this.selectQuestion,
                 this.addQuestion,
-                "add new question",
+                "Add New Question",
                 this.editQuestion
               )}
             </div>
@@ -274,12 +283,12 @@ class NewQuizPage extends React.Component {
                     this.deleteAnswer,
                     this.selectAnswer,
                     this.addAnswer,
-                    `new answer for question #${
+                    `New Answer for Question #${
                       this.state.selectedQuestion + 1
                     }`,
                     this.editAnswer
                   )
-                : "add/select a question to start adding answers"}
+                : "Add/Select a Question to Start Adding Answers"}
             </div>
 
             <div>
@@ -289,19 +298,19 @@ class NewQuizPage extends React.Component {
                 this.deleteResult,
                 this.selectResult,
                 this.addResult,
-                "description",
+                "Description",
                 this.editResult
               )}
             </div>
           </div>
         </div>
         <button
-          style={{ margin: "auto", width: "50%" }}
+          className="submit-button"
           onClick={() => {
-            console.log(this.state);
+            this.submit();
           }}
         >
-          Send
+          Submit
         </button>
       </div>
     );

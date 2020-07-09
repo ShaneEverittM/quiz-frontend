@@ -13,8 +13,19 @@
   flex-direction: row;
   justify-content: space-around;
 }
-
+.submit-button {
+  border: 1px solid white;
+  width: 50%;
+  margin: auto;
+  color: white;
+  background-color: green;
+  margin-top: 15px;
+  font-size: large;
+  padding: 3px;
+}
 .middle-column {
+  display: flex;
+  flex-direction: column;
   padding-left: 5%;
   padding-right: 5%;
   border-left: 1px solid black;

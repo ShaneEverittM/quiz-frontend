@@ -1,23 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CategoryPreview from "../components/CategoryPreview";
 import "./Home.css";
+import { getQuizPreviews } from "../api/api.js";
 
-let quiz_list = ["quiz1", "quiz2", "quiz3", "quiz1", "quiz2", "quiz3"];
+/**
+ TODO style errything
+ TODO display description on create page
+TODO create browse page
+TODO create search
+ */
 const Home = () => {
+  let [quizzes, setQuizzes] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getQuizPreviews();
+      setQuizzes(response.data);
+    }
+    fetchData();
+  }, []);
   return (
     <div className="home-container">
       <CategoryPreview
-        quizList={quiz_list}
+        quizList={quizzes}
         categoryName="Top quizzes last hour"
       />
       <CategoryPreview
-        quizList={quiz_list}
+        quizList={quizzes}
         categoryName="Picked esspecially for you"
       />
-      <CategoryPreview
-        quizList={quiz_list}
-        categoryName="Our spiciest quizzes"
-      />
+      <CategoryPreview quizList={quizzes} categoryName="Our spiciest quizzes" />
     </div>
   );
 };

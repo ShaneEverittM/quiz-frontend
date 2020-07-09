@@ -8,18 +8,15 @@ let CategoryPreview = ({ quizList, categoryName }) => {
     <div>
       <p className="quiz-category">{categoryName}</p>
       <div className="quiz-preview">
-        {quizList.map((quizName, i) => {
+        {quizList.map((quizObj, i) => {
           return (
             <Link
-              to={`/quiz?id=${i}`}
-              id="1"
+              to={`/takequiz/${quizObj.id}`}
+              id={quizObj.id}
               key={i}
               className="quiz-container"
             >
-              <Quiz
-                title={quizName}
-                description="How well do you know you latin place holder text?? Test your knowledge now!"
-              />
+              <Quiz title={quizObj.name} description={quizObj.description} />
             </Link>
           );
         })}
