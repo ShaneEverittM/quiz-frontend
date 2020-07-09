@@ -18,8 +18,8 @@ const ResultPage = (props) => {
     console.log("mode: ", mode);
     console.log("computer: ", computer);
     return (
-      <div>
-        <h1>{possibleResults[mode].resultHeader}</h1>
+      <div style={{ marginTop: "80px" }}>
+        <h1>{possibleResults[mode].header}</h1>
         <h4>{possibleResults[mode].description}</h4>
       </div>
     );

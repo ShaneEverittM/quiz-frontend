@@ -11,7 +11,7 @@ let CategoryPreview = ({ quizList, categoryName }) => {
         {quizList.map((quizName, i) => {
           return (
             <Link
-              to={`/quiz?id=${i}`}
+              to={`/takequiz/${i}`}
               id="1"
               key={i}
               className="quiz-container"

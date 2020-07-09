@@ -65,7 +65,7 @@ const QuizComponent = ({
             </div>
             {pos === selectedItem ? renderMenu() : ""}
           </div>
-          <span className>{text.header ? text.description : ""}</span>
+          <span>{text.header ? text.description : ""}</span>
         </div>
       </div>
     );

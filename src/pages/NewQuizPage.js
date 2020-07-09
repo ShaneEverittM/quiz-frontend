@@ -2,56 +2,20 @@ import React from "react";
 import { Prompt } from "react-router-dom";
 import NewQuizComponent from "../components/NewQuizComponent";
 import QuizComponent from "../components/QuizComponent";
-
+import { submitQuiz } from "../api/api.js";
 import "./NewQuizPage.css";
 
 /**
- * const data = {
-  quiz: { id: 1, name: "test", num_questions: 5 },
-  questions: [
-    { id: 1, description: "q1n", qz_id: 1 },
-    { id: 2, description: "q2", qz_id: 1 },
-    { id: 3, description: "q3", qz_id: 1 },
-    { id: 4, description: "q4", qz_id: 1 },
-    { id: 5, description: "q5", qz_id: 1 },
-  ],
-  answers: [
-    [
-      { id: 1, description: "a1", val: 0, q_id: 1 },
-      { id: 1, description: "a2", val: 1, q_id: 1 },
-      { id: 1, description: "a1", val: 2, q_id: 1 },
-      { id: 1, description: "a2", val: 1, q_id: 1 },
-    ],
-    [
-      { id: 2, description: "a2", val: 1, q_id: 2 },
-      { id: 2, description: "a2", val: 2, q_id: 2 },
-      { id: 2, description: "a2", val: 1, q_id: 2 },
-      { id: 2, description: "a2", val: 0, q_id: 2 },
-    ],
-    [
-      { id: 3, description: "a3", val: 1, q_id: 3 },
-      { id: 3, description: "a3", val: 2, q_id: 3 },
-    ],
-    [
-      { id: 4, description: "a4", val: 2, q_id: 4 },
-      { id: 4, description: "a4", val: 0, q_id: 4 },
-    ],
-    [{ id: 5, description: "a5", val: 1, q_id: 5 }],
-  ],
-  results: [
-    { num: 0, resultHeader: "R1", description: "D1" },
-    { num: 1, resultHeader: "R2", description: "D2" },
-    { num: 2, resultHeader: "R3", description: "D3" },
-  ],
-};
+ TODO clear form and display message on submit  
 
-   TODO add edit functionality
+
    TODO refactor quizname into it's own component
   */
 class NewQuizPage extends React.Component {
   state = {
     questions: [],
     quizName: "",
+    quizDescription: "",
     answers: [[]],
     activeAnswers: [],
     results: [],
@@ -61,8 +25,11 @@ class NewQuizPage extends React.Component {
     editQuizNameMode: false,
   };
 
-  updateQuizName = (quizName) => {
-    this.setState({ quizName });
+  updateQuizName = (text) => {
+    this.setState({ quizName: text });
+  };
+  updateQuizDesc = (text) => {
+    this.setState({ quizDescription: text });
   };
   inProgress = () => {
     return this.state.questions.length || this.state.results.length;
@@ -229,6 +196,18 @@ class NewQuizPage extends React.Component {
       </div>
     );
   };
+  packData = () => {
+    return {
+      quiz: {
+        name: this.state.quizName,
+        description: this.state.quizDescription,
+        num_questions: this.state.questions.length,
+      },
+      questions: this.state.questions,
+      answers: this.state.answers,
+      results: this.state.results,
+    };
+  };
 
   render() {
     return (
@@ -250,6 +229,11 @@ class NewQuizPage extends React.Component {
                     id="quizName"
                     value={this.state.quizName}
                     onChange={(e) => this.updateQuizName(e.target.value)}
+                  />
+                  <textarea
+                    id="quizDesc"
+                    value={this.state.quizDescription}
+                    onChange={(e) => this.updateQuizDesc(e.target.value)}
                   />
                   <button
                     onClick={() => this.setState({ editQuizNameMode: false })}
@@ -311,7 +295,7 @@ class NewQuizPage extends React.Component {
         <button
           className="submit-button"
           onClick={() => {
-            console.log(this.state);
+            submitQuiz(this.packData());
           }}
         >
           Submit
