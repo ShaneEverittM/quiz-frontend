@@ -5,7 +5,8 @@ import Home from "./pages/Home";
 import Place from "./pages/Placeholder";
 import ResultPage from "./pages/ResultPage";
 import NewQuizPage from "./pages/NewQuizPage";
-
+import Error from "./pages/ErrorPage";
+import Browse from "./pages/Browse";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const App = () => {
@@ -17,6 +18,8 @@ const App = () => {
       <Route path="/results" exact component={ResultPage} />
       <Route path="/placeholder" exact component={Place} />
       <Route path="/quiz/new" exact component={NewQuizPage} />
+      <Route path="/error" component={Error} />
+      <Route path="/browse" component={Browse} />
     </Router>
   );
 };

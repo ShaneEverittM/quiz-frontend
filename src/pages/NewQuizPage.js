@@ -2,35 +2,31 @@ import React from "react";
 import { Prompt } from "react-router-dom";
 import NewQuizComponent from "../components/NewQuizComponent";
 import QuizComponent from "../components/QuizComponent";
+import NewQuizTitle from "../components/NewQuizTitle";
 import { submitQuiz } from "../api/api.js";
 import "./NewQuizPage.css";
 
 /**
- TODO clear form and display message on submit  
+ TODO display message on submit  
 
 
-   TODO refactor quizname into it's own component
   */
 class NewQuizPage extends React.Component {
   state = {
     questions: [],
-    quizName: "",
-    quizDescription: "",
+    quizHeader: {},
     answers: [[]],
     activeAnswers: [],
     results: [],
     selectedQuestion: -1,
     selectedAnswer: -1,
     selectedResult: -1,
-    editQuizNameMode: false,
   };
 
-  updateQuizName = (text) => {
-    this.setState({ quizName: text });
+  updateQuizName = (quizHeader) => {
+    this.setState({ quizHeader });
   };
-  updateQuizDesc = (text) => {
-    this.setState({ quizDescription: text });
-  };
+
   inProgress = () => {
     return this.state.questions.length || this.state.results.length;
   };
@@ -187,13 +183,7 @@ class NewQuizPage extends React.Component {
       </div>
     );
   };
-  renderQuizName = () => {
-    return (
-      <div>
-        {this.state.quizName ? this.state.quizName : "Double Click to Edit"}
-      </div>
-    );
-  };
+
   packData = () => {
     return {
       quiz: {
@@ -209,15 +199,13 @@ class NewQuizPage extends React.Component {
     submitQuiz(this.packData());
     this.setState({
       questions: [],
-      quizName: "",
-      quizDescription: "",
+      quizHeader: {},
       answers: [[]],
       activeAnswers: [],
       results: [],
       selectedQuestion: -1,
       selectedAnswer: -1,
       selectedResult: -1,
-      editQuizNameMode: false,
     });
   };
 
@@ -228,38 +216,7 @@ class NewQuizPage extends React.Component {
           when={Boolean(this.inProgress())}
           message="You'll lose your progress if you leave now!"
         />
-        <div className="quiz-title">
-          <div>
-            <h2
-              onDoubleClick={() => {
-                this.setState({ editQuizNameMode: true });
-              }}
-            >
-              {this.state.editQuizNameMode ? (
-                <div>
-                  <textarea
-                    id="quizName"
-                    value={this.state.quizName}
-                    onChange={(e) => this.updateQuizName(e.target.value)}
-                  />
-                  <textarea
-                    id="quizDesc"
-                    value={this.state.quizDescription}
-                    onChange={(e) => this.updateQuizDesc(e.target.value)}
-                  />
-                  <button
-                    onClick={() => this.setState({ editQuizNameMode: false })}
-                  >
-                    &#10003;
-                    {/* checkmark */}
-                  </button>
-                </div>
-              ) : (
-                this.renderQuizName()
-              )}
-            </h2>
-          </div>
-        </div>
+        <NewQuizTitle updateName={this.updateQuizName} />
 
         <div>
           <div className="createPage">
