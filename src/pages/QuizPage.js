@@ -12,6 +12,7 @@ class QuizPage extends React.Component {
     curQuestion: 0,
     numQuestions: 0,
     redirectToResults: false,
+    redirectToError: false,
     responses: [],
     data: [],
     resultButton: false,
@@ -22,17 +23,15 @@ class QuizPage extends React.Component {
     this.callApi();
   }
 
-  //TODO redirct to 404 if not data
-
   callApi = async () => {
     let { data } = await getQuiz(this.props.location.pathname.substring(10));
-    // console.log("data: ", data);
+    if (data) {
+      let { description, name } = data.quiz;
 
-    let { description, name } = data.quiz;
+      let numQuestions = data.questions.length;
 
-    let numQuestions = data.questions.length;
-
-    this.setState({ data, title: name, numQuestions, description });
+      this.setState({ data, title: name, numQuestions, description });
+    } else this.setState({ redirectToError: true });
   };
   renderNextQuestion = () => {
     let { curQuestion } = this.state;
@@ -51,15 +50,29 @@ class QuizPage extends React.Component {
   };
 
   redirect = () => {
+    let pathname = "";
+    let redirct = false;
+    let state = {};
+    if (this.state.redirectToError) {
+      pathname = "/error";
+      state = {
+        responses: this.state.responses,
+        results: this.state.data.results,
+      };
+      redirct = true;
+    }
+
     if (this.state.redirectToResults) {
+      pathname = "/results";
+      redirct = true;
+    }
+
+    if (redirct) {
       return (
         <Redirect
           to={{
-            pathname: "/results",
-            state: {
-              responses: this.state.responses,
-              results: this.state.data.results,
-            },
+            pathname,
+            state,
           }}
         />
       );

@@ -5,7 +5,6 @@ import { getQuizPreviews } from "../api/api.js";
 
 /**
  TODO style errything
- TODO display description on create page
 TODO create browse page
 TODO create search
  */
