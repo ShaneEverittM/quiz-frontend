@@ -1,6 +1,10 @@
 .current-tab {
   text-decoration: underline;
 }
+.header {
+  width: 100%;
+  padding-top: 80px;
+}
 .navbar {
   background-color: #30c0f8;
   display: flex;

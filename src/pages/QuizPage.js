@@ -55,16 +55,17 @@ class QuizPage extends React.Component {
     let state = {};
     if (this.state.redirectToError) {
       pathname = "/error";
-      state = {
-        responses: this.state.responses,
-        results: this.state.data.results,
-      };
+
       redirct = true;
     }
 
     if (this.state.redirectToResults) {
       pathname = "/results";
       redirct = true;
+      state = {
+        responses: this.state.responses,
+        results: this.state.data.results,
+      };
     }
 
     if (redirct) {
