@@ -7,6 +7,7 @@ import ResultPage from "./pages/ResultPage";
 import NewQuizPage from "./pages/NewQuizPage";
 import Error from "./pages/ErrorPage";
 import Browse from "./pages/Browse";
+import Search from "./pages/Search";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
       <Route path="/quiz/new" exact component={NewQuizPage} />
       <Route path="/error" component={Error} />
       <Route path="/browse" component={Browse} />
+      <Route path="/search" component={Search} />
     </Router>
   );
 };

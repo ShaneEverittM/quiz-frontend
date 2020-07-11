@@ -31,9 +31,9 @@ const Navbar = () => {
         <NavLink
           activeClassName="current-tab"
           className="navbar-content"
-          to="/placeholder"
+          to="/search"
         >
-          navbar-option#3
+          Search
         </NavLink>
       </div>
     </div>

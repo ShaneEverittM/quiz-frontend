@@ -32,4 +32,25 @@ const getQuizPreviews = async () => {
   }
 };
 
-export { getQuizPreviews, getQuiz, submitQuiz };
+const getBrowse = async () => {
+  try {
+    let res = await axios.get(`${serverURL}/browse`);
+    return res;
+  } catch (e) {
+    console.log("error: ", e);
+    return [];
+  }
+};
+
+const search = async (term) => {
+  console.log("term: ", term);
+  try {
+    let res = await axios.get(`${serverURL}/search/${term}`);
+    return res;
+  } catch (e) {
+    console.log("error: ", e);
+    return { data: [] };
+  }
+};
+
+export { search, getBrowse, getQuizPreviews, getQuiz, submitQuiz };
