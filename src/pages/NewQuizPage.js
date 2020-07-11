@@ -24,6 +24,7 @@ class NewQuizPage extends React.Component {
   };
 
   updateQuizName = (quizHeader) => {
+    console.log("quizHeader: ", quizHeader);
     this.setState({ quizHeader });
   };
 
@@ -186,10 +187,7 @@ class NewQuizPage extends React.Component {
 
   packData = () => {
     return {
-      quiz: {
-        name: this.state.quizName,
-        description: this.state.quizDescription,
-      },
+      quiz: this.state.quizHeader,
       questions: this.state.questions,
       answers: this.state.answers,
       results: this.state.results,

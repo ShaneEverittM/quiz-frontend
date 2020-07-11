@@ -18,7 +18,7 @@ const getQuiz = async (id) => {
     return res;
   } catch (e) {
     console.log("error: ", e);
-    return [];
+    return { data: [] };
   }
 };
 
@@ -28,7 +28,7 @@ const getQuizPreviews = async () => {
     return res;
   } catch (e) {
     console.log("error: ", e);
-    return [];
+    return { data: [] };
   }
 };
 
@@ -38,7 +38,7 @@ const getBrowse = async () => {
     return res;
   } catch (e) {
     console.log("error: ", e);
-    return [];
+    return { data: [] };
   }
 };
 

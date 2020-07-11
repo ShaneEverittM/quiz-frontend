@@ -12,8 +12,8 @@ const Home = () => {
   let [quizzes, setQuizzes] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const response = await getQuizPreviews();
-      setQuizzes(response.data);
+      const { data } = await getQuizPreviews();
+      setQuizzes(data);
     }
     fetchData();
   }, []);
