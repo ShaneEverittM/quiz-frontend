@@ -3,11 +3,6 @@ import CategoryPreview from "../components/CategoryPreview";
 import "./Home.css";
 import { getQuizPreviews } from "../api/api.js";
 
-/**
- TODO style errything
-TODO create browse page
-TODO create search
- */
 const Home = () => {
   let [quizzes, setQuizzes] = useState([]);
   useEffect(() => {

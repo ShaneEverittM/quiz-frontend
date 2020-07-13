@@ -9,7 +9,7 @@ import "./NewQuizPage.css";
 /**
  TODO display message on submit  
 TODO highlight unmapped answers/questions'
-TODO validate input
+
 
   */
 class NewQuizPage extends React.Component {

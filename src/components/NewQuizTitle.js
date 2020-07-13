@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./NewQuizTitle.css";
-//TODO style
+
 const NewQuizTitle = ({ quizHeader, updateName }) => {
   let [headerObj, setHeader] = useState(quizHeader);
   let [editMode, toggleEditMode] = useState(false);

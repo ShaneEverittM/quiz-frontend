@@ -6,14 +6,16 @@
 }
 .header {
   width: 100%;
-  padding-top: 80px;
+  padding-top: 60px;
 }
 .navbar {
   background-color: #30c0f8;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  border: 1px solid black;
+  -webkit-box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.75);
   width: 100%;
   left: 0;
   top: 0;

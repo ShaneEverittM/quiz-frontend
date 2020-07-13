@@ -3,9 +3,18 @@
   flex-direction: column;
 }
 .quiz-title {
-  justify-content: center;
   align-self: center;
-  align-items: center;
+  background-color: #ace5fc;
+  border-radius: 5px;
+  padding: 5px;
+  max-height: 100px;
+  min-width: 400px;
+  color: rgb(255, 255, 255);
+  margin-bottom: 20px;
+
+  -webkit-box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.75);
 }
 .createPage {
   display: flex;
