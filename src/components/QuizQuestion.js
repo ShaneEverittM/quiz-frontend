@@ -16,7 +16,9 @@ let QuizQuestion = ({ answers, onSelect, questionNum, question }) => {
         return (
           <div
             onClick={() => handleSelect(index)}
-            className={`quiz-box ${selection === index ? "" : "unselected"}`}
+            className={`quiz-box shadow ${
+              selection === index ? "" : "unselected"
+            }`}
             key={index}
           >
             {answer.description}

@@ -3,7 +3,7 @@ import "./Quiz.css";
 
 const Quiz = ({ title, description }) => {
   return (
-    <div className="quiz-box">
+    <div className="quiz-box shadow">
       <div className="quiz-box-items">
         <h3>{title}</h3>
       </div>

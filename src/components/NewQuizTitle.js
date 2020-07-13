@@ -1,23 +1,32 @@
 import React, { useState } from "react";
+import "./NewQuizTitle.css";
 //TODO style
 const NewQuizTitle = ({ updateName }) => {
   let [headerObj, setHeader] = useState({ name: "", description: "" });
   let [editMode, toggleEditMode] = useState(false);
-
+  const enterToSubmit = (e) => {
+    //this may not work on every browser/keyboard combo
+    if (e.key.toLowerCase() === "enter") submit();
+  };
   const renderQuizName = () => {
     return (
-      <div>
+      <div className="quiz-title-container">
         <h2>{headerObj.name ? headerObj.name : "Double Click to Edit"}</h2>
         <p>{headerObj.description}</p>
       </div>
     );
   };
-
+  const submit = () => {
+    toggleEditMode(false);
+    updateName(headerObj);
+  };
   const renderEdit = () => {
     return (
       <div>
         <textarea
+          className="title-input"
           id="quizName"
+          placeholder="title"
           value={headerObj.name}
           onChange={(e) =>
             setHeader({
@@ -25,9 +34,13 @@ const NewQuizTitle = ({ updateName }) => {
               description: headerObj.description,
             })
           }
+          onKeyPress={(e) => {
+            enterToSubmit(e);
+          }}
         />
-        <br />
         <textarea
+          className="title-input"
+          placeholder="description"
           id="quizDesc"
           value={headerObj.description}
           onChange={(e) =>
@@ -36,12 +49,14 @@ const NewQuizTitle = ({ updateName }) => {
               description: e.target.value,
             })
           }
+          onKeyPress={(e) => {
+            enterToSubmit(e);
+          }}
         />
         <button
+          className="update-btn"
           onClick={() => {
-            toggleEditMode(false);
-            updateName(headerObj);
-            console.log("headerObj: ", headerObj);
+            submit();
           }}
         >
           &#10003;

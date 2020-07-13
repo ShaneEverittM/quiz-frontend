@@ -13,7 +13,7 @@
   justify-content: space-around;
 }
 .submit-button {
-  border: 1px solid white;
+  border: none;
   width: 50%;
   margin: auto;
   color: white;

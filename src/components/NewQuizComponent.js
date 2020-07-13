@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./NewQuizComponent.css";
+
 const NewQuizComponent = ({
   text,
   handleAdd,
