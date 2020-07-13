@@ -277,7 +277,7 @@ class NewQuizPage extends React.Component {
           </div>
         </div>
         <button
-          className="submit-button "
+          className=" main-submit submit-button "
           onClick={() => {
             this.submit();
           }}

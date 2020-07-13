@@ -59,7 +59,7 @@ const QuizComponent = ({
     if (type === "activeAnswers") letter = "A";
     else if (type === "results") letter = "R";
     let selected = pos === selectedItem;
-    console.log("type: ", type);
+
     return (
       <div>
         <div className="quiz-component-container">
@@ -70,8 +70,9 @@ const QuizComponent = ({
             {letter}
             {pos + 1}: {text.header ? text.header : text.description}{" "}
             {leadsTo != null ? `→ result #${leadsTo + 1}` : ""}
-            {selected ? renderMenu() : ""}
-          </div>{" "}
+            {selected ? renderMenu() : ""}{" "}
+          </div>
+
           <span className="result-description">
             {text.header && selected && text.description
               ? "description: " + text.description

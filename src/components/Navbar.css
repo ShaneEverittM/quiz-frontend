@@ -1,5 +1,8 @@
 .current-tab {
   text-decoration: underline;
+  -webkit-box-shadow: 0px 0px 2px 4px rgba(248, 104, 48, 1);
+  -moz-box-shadow: 0px 0px 2px 4px rgba(248, 104, 48, 1);
+  box-shadow: 0px 0px 2px 4px rgba(248, 104, 48, 1);
 }
 .header {
   width: 100%;
@@ -18,19 +21,27 @@
   position: fixed;
   z-index: 2;
 }
-
+text {
+  color: white;
+}
 .navbar-content {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
   padding: 10px;
+  color: white;
+  font-size: larger;
 }
 a {
   color: black;
   text-decoration: none;
 }
 
+.navbar-content:hover {
+  -webkit-box-shadow: 0px 0px 2px 4px rgba(248, 104, 48, 1);
+  -moz-box-shadow: 0px 0px 2px 4px rgba(248, 104, 48, 1);
+  box-shadow: 0px 0px 2px 4px rgba(248, 104, 48, 1);
+  cursor: pointer;
+}
+
 a:hover {
-  color: black;
   text-decoration: none;
   cursor: pointer;
 }

@@ -66,8 +66,7 @@ const NewQuizTitle = ({ quizHeader, updateName }) => {
             submit();
           }}
         >
-          &#10003;
-          {/* checkmark */}
+          Update
         </button>
       </div>
     );

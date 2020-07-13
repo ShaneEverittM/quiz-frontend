@@ -86,7 +86,11 @@ class QuizPage extends React.Component {
 
   renderButton = () => {
     if (this.state.curQuestion === 0)
-      return <button onClick={this.renderNextQuestion}>Start!</button>;
+      return (
+        <button className="submit-button" onClick={this.renderNextQuestion}>
+          Start!
+        </button>
+      );
 
     if (this.state.resultButton) {
       if (this.scrollRef.current) {
@@ -94,7 +98,11 @@ class QuizPage extends React.Component {
       }
       return (
         <div ref={this.scrollRef}>
-          <button onClick={this.setRedirect}>View Results!</button>
+          <div style={{ width: "300px", margin: "auto" }}>
+            <button className="submit-button" onClick={this.setRedirect}>
+              View Results!
+            </button>
+          </div>
         </div>
       );
     }
