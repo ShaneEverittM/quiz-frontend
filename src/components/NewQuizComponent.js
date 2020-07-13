@@ -29,6 +29,7 @@ const NewQuizComponent = ({
       <div className="input-container">
         <label htmlFor="header">Title</label>
         <input
+          maxLength="40"
           type="text"
           value={resultHeader ? resultHeader : ""}
           onChange={(e) => setHeader(e.target.value)}
@@ -44,6 +45,7 @@ const NewQuizComponent = ({
       <div className="input-container">
         <label htmlFor="input">{text}</label>
         <textarea
+          maxLength="140"
           onKeyPress={(e) => {
             enterToSubmit(e);
           }}

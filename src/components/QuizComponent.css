@@ -9,11 +9,41 @@
   flex-direction: column;
   padding-bottom: 10px;
 }
-.selected {
-  color: black;
+.selectable {
+  background-color: #f86830;
+  min-height: 30px;
+  border-radius: 8px;
   display: flex;
-  border: 1px solid black;
+  align-items: center;
+  padding: 5px 5px;
+  max-width: 300px;
+  color: white;
+}
+
+.result-description {
+  margin-top: 20px;
+  text-align: center;
+}
+.selected {
+  color: white;
+  font-weight: 500;
+  background-color: #f86830;
+  min-height: 40px;
+  border-radius: 8px;
+  padding: 5px 5px;
+
+  display: flex;
   justify-content: space-between;
+
+  -webkit-box-shadow: 4px 7px 18px 5px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 4px 7px 18px 5px rgba(0, 0, 0, 0.22);
+  box-shadow: 4px 7px 18px 5px rgba(0, 0, 0, 0.22);
+}
+
+.selectable:hover {
+  -webkit-box-shadow: 0px 0px 6px 2px rgba(21, 190, 237, 1);
+  -moz-box-shadow: 0px 0px 6px 2px rgba(21, 190, 237, 1);
+  box-shadow: 0px 0px 6px 2px rgba(21, 190, 237, 1);
 }
 
 .icon {

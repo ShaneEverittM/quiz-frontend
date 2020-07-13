@@ -55,17 +55,28 @@ const QuizComponent = ({
     );
   };
   const display = () => {
+    let letter = "Q";
+    if (type === "activeAnswers") letter = "A";
+    else if (type === "results") letter = "R";
+    let selected = pos === selectedItem;
+    console.log("type: ", type);
     return (
       <div>
         <div className="quiz-component-container">
-          <div className={` ${pos === selectedItem ? "selected" : ""}`}>
-            <div className="selectable" onClick={() => onSelect(pos)}>
-              #{pos + 1}: {text.header ? text.header : text.description}{" "}
-              {leadsTo != null ? `→ result #${leadsTo + 1}` : ""}
-            </div>
-            {pos === selectedItem ? renderMenu() : ""}
-          </div>
-          <span>{text.header ? text.description : ""}</span>
+          <div
+            className={`selectable ${selected ? "selected " : ""}`}
+            onClick={() => onSelect(pos)}
+          >
+            {letter}
+            {pos + 1}: {text.header ? text.header : text.description}{" "}
+            {leadsTo != null ? `→ result #${leadsTo + 1}` : ""}
+            {selected ? renderMenu() : ""}
+          </div>{" "}
+          <span className="result-description">
+            {text.header && selected && text.description
+              ? "description: " + text.description
+              : ""}
+          </span>
         </div>
       </div>
     );

@@ -32,6 +32,7 @@ const NewQuizTitle = ({ quizHeader, updateName }) => {
           className="title-input"
           id="quizName"
           placeholder="title"
+          maxLength="140"
           value={headerObj.name}
           onChange={(e) =>
             setHeader({
@@ -46,6 +47,7 @@ const NewQuizTitle = ({ quizHeader, updateName }) => {
         <textarea
           className="title-input"
           placeholder="description"
+          maxLength="140"
           id="quizDesc"
           value={headerObj.description}
           onChange={(e) =>
