@@ -5,3 +5,8 @@
 .unselected {
   opacity: 60%;
 }
+
+body {
+  background-color: rgba(236, 235, 225, 0.911);
+  font-family: Arial, Helvetica, sans-serif;
+}

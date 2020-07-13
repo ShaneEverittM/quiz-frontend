@@ -9,7 +9,7 @@ import Error from "./pages/ErrorPage";
 import Browse from "./pages/Browse";
 import Search from "./pages/Search";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
+import "./styles.css";
 const App = () => {
   return (
     <Router>

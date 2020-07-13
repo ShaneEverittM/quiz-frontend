@@ -1,5 +1,5 @@
 .quiz-box {
-  border: 1px solid black;
+  font-size: large;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -8,6 +8,13 @@
   margin-top: 2%;
   margin-left: 15px;
   align-items: center;
+  background-color: #f86830;
+  color: white;
+  border-radius: 8px;
+
+  -webkit-box-shadow: 4px 7px 18px 5px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 4px 7px 18px 5px rgba(0, 0, 0, 0.22);
+  box-shadow: 4px 7px 18px 5px rgba(0, 0, 0, 0.22);
 }
 
 .quiz-box-items {

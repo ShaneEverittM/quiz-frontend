@@ -2,4 +2,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.quiz-category {
+  font-size: large;
+  font-weight: 200;
 }
