@@ -9,7 +9,7 @@ import "./NewQuizPage.css";
 /**
  TODO display message on submit  
 TODO highlight unmapped answers/questions'
-TODO validate inout
+TODO validate input
 
   */
 class NewQuizPage extends React.Component {
@@ -194,18 +194,31 @@ class NewQuizPage extends React.Component {
       results: this.state.results,
     };
   };
+  validate = (info) => {
+    console.log("info: ", info);
+    for (let subar of info.answers) {
+      for (let obj of subar) if (obj.val === null) return false; // check answers are matched
+      if (!subar.length) return false;
+    }
+    if (!info.quiz.name || !info.quiz.description) return false;
+
+    return true;
+  };
   submit = () => {
-    submitQuiz(this.packData());
-    this.setState({
-      questions: [],
-      quizHeader: {},
-      answers: [[]],
-      activeAnswers: [],
-      results: [],
-      selectedQuestion: -1,
-      selectedAnswer: -1,
-      selectedResult: -1,
-    });
+    let dataToSend = this.packData();
+    if (this.validate(dataToSend)) {
+      submitQuiz();
+      this.setState({
+        questions: [],
+        quizHeader: {},
+        answers: [[]],
+        activeAnswers: [],
+        results: [],
+        selectedQuestion: -1,
+        selectedAnswer: -1,
+        selectedResult: -1,
+      });
+    } else console.log("no good");
   };
 
   render() {
@@ -215,7 +228,10 @@ class NewQuizPage extends React.Component {
           when={Boolean(this.inProgress())}
           message="You'll lose your progress if you leave now!"
         />
-        <NewQuizTitle updateName={this.updateQuizName} />
+        <NewQuizTitle
+          quizHeader={this.state.quizHeader}
+          updateName={this.updateQuizName}
+        />
 
         <div>
           <div className="createPage">

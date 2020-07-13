@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./NewQuizTitle.css";
 //TODO style
-const NewQuizTitle = ({ updateName }) => {
-  let [headerObj, setHeader] = useState({ name: "", description: "" });
+const NewQuizTitle = ({ quizHeader, updateName }) => {
+  let [headerObj, setHeader] = useState(quizHeader);
   let [editMode, toggleEditMode] = useState(false);
+
+  useEffect(() => {
+    setHeader(quizHeader);
+  }, [quizHeader]);
+
   const enterToSubmit = (e) => {
     //this may not work on every browser/keyboard combo
     if (e.key.toLowerCase() === "enter") submit();
