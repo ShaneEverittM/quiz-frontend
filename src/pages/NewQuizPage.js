@@ -6,12 +6,6 @@ import NewQuizTitle from "../components/NewQuizTitle";
 import { submitQuiz } from "../api/api.js";
 import "./NewQuizPage.css";
 
-/**
- TODO display message on submit  
-TODO highlight unmapped answers/questions'
-
-
-  */
 class NewQuizPage extends React.Component {
   state = {
     questions: [],
@@ -22,10 +16,11 @@ class NewQuizPage extends React.Component {
     selectedQuestion: -1,
     selectedAnswer: -1,
     selectedResult: -1,
+    msg: "",
+    error: false,
   };
 
   updateQuizName = (quizHeader) => {
-    console.log("quizHeader: ", quizHeader);
     this.setState({ quizHeader });
   };
 
@@ -174,14 +169,14 @@ class NewQuizPage extends React.Component {
             );
           })}
         </div>
-        <div>
+        <>
           <NewQuizComponent
             handleAdd={add}
             text={text}
             type={type}
             buttonText="Add"
           />
-        </div>
+        </>
       </div>
     );
   };
@@ -195,19 +190,41 @@ class NewQuizPage extends React.Component {
     };
   };
   validate = (info) => {
-    console.log("info: ", info);
-    for (let subar of info.answers) {
-      for (let obj of subar) if (obj.val === null) return false; // check answers are matched
-      if (!subar.length) return false;
-    }
-    if (!info.quiz.name || !info.quiz.description) return false;
+    let errorCode = 0;
 
-    return true;
+    if (!info.questions.length) errorCode = 1;
+    for (let subar of info.answers) {
+      for (let obj of subar) if (obj.val === null) errorCode |= 2; // check answers are matched
+      if (!subar.length) errorCode |= 4;
+    }
+    for (let result of info.results) {
+      if (result.header == null || result.description == null) errorCode |= 16;
+    }
+    if (!info.quiz.name || !info.quiz.description) errorCode |= 8;
+
+    return errorCode;
   };
+
+  setErrorMsg = (errorCode) => {
+    let msg = "";
+    if (errorCode & 1) msg += "@No listed answers";
+    errorCode >>= 1;
+    if (errorCode & 1) msg += "@There are unmatched answers";
+    errorCode >>= 1;
+    if (errorCode & 1) msg += "@No answers listed\n";
+    errorCode >>= 1;
+    if (errorCode & 1) msg += "@Error in quizname or description";
+    errorCode >>= 1;
+    if (errorCode & 1) msg += "@Error in result title or description";
+    this.setState({ msg, error: true });
+  };
+
   submit = () => {
     let dataToSend = this.packData();
-    if (this.validate(dataToSend)) {
-      submitQuiz();
+    let errorStatus = this.validate(dataToSend);
+    if (errorStatus === 0) {
+      this.setState({ error: false });
+      submitQuiz(dataToSend);
       this.setState({
         questions: [],
         quizHeader: {},
@@ -218,9 +235,27 @@ class NewQuizPage extends React.Component {
         selectedAnswer: -1,
         selectedResult: -1,
       });
-    } else console.log("no good");
+      this.setState({ msg: "Success!" });
+    } else {
+      this.setErrorMsg(errorStatus);
+    }
   };
 
+  renderMsg = () => {
+    return (
+      <div>
+        {this.state.msg ? (
+          <div className={`${this.state.msg[0] === "@" ? "error" : "success"}`}>
+            {this.state.msg.split("@").map((item, i) => {
+              return <div key={i}> {item}</div>;
+            })}
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+    );
+  };
   render() {
     return (
       <div className="container">
@@ -284,6 +319,18 @@ class NewQuizPage extends React.Component {
         >
           Submit
         </button>
+
+        {this.renderMsg()}
+        <div className="tips">
+          <div style={{ textAlign: "center" }}>Tips</div>
+          <span role="img" aria-label="trash" className="container-item">
+            ❗ - means there are unmatched answers
+          </span>
+          <div>
+            While quizzes can be flexible, we suggest one answer for each result
+            to ensure a well formed quiz.
+          </div>
+        </div>
       </div>
     );
   }

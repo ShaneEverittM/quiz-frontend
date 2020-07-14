@@ -9,8 +9,8 @@ const Search = () => {
   let [haveSearched, toggleSearched] = useState(false);
 
   const handleSubmit = async () => {
-    console.log(searchTerm);
     let { data } = await search(searchTerm);
+
     setResults(data);
     toggleSearched(true);
   };

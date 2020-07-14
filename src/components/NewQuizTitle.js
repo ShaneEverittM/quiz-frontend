@@ -45,7 +45,7 @@ const NewQuizTitle = ({ quizHeader, updateName }) => {
           }}
         />
         <textarea
-          className="title-input"
+          className="description-input"
           placeholder="description"
           maxLength="140"
           id="quizDesc"

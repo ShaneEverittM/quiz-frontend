@@ -66,19 +66,20 @@ const QuizComponent = ({
     let letter = "Q";
     if (type === "activeAnswers") letter = "A";
     else if (type === "results") letter = "R";
+
     let selected = pos === selectedItem;
 
     return (
       <div>
         <div className="quiz-component-container">
-          {type === "activeAnswers" ? renderAnswerInfo() : ""}
+          {type !== "results" ? renderAnswerInfo() : ""}
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div
               className={`selectable ${selected ? "selected " : ""}`}
               onClick={() => onSelect(pos)}
             >
               {letter}
-              {pos + 1}: {text.header}
+              {pos + 1}: {text.header ? text.header : text.description}
               {leadsTo != null ? `→ result #${leadsTo + 1}` : ""}
               {selected ? renderMenu() : ""}{" "}
             </div>

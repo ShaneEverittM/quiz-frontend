@@ -2,10 +2,8 @@ import axios from "axios";
 const serverURL = "http://localhost:8000";
 
 const submitQuiz = async (data) => {
-  console.log("data: ", data);
   try {
     let res = await axios.post(`${serverURL}/quiz`, data);
-    console.log(res);
   } catch (e) {
     console.log("error: ", e);
   }
@@ -43,9 +41,8 @@ const getBrowse = async () => {
 };
 
 const search = async (term) => {
-  console.log("term: ", term);
   try {
-    let res = await axios.get(`${serverURL}/search/${term}`);
+    let res = await axios.get(`${serverURL}/search?query=${term}`);
     return res;
   } catch (e) {
     console.log("error: ", e);
