@@ -54,6 +54,14 @@ const QuizComponent = ({
       </div>
     );
   };
+  const renderAnswerInfo = () => {
+    if (leadsTo === null)
+      return (
+        <span role="img" aria-label="trash" className="container-item">
+          ❗
+        </span>
+      );
+  };
   const display = () => {
     let letter = "Q";
     if (type === "activeAnswers") letter = "A";
@@ -63,21 +71,25 @@ const QuizComponent = ({
     return (
       <div>
         <div className="quiz-component-container">
-          <div
-            className={`selectable ${selected ? "selected " : ""}`}
-            onClick={() => onSelect(pos)}
-          >
-            {letter}
-            {pos + 1}: {text.header ? text.header : text.description}{" "}
-            {leadsTo != null ? `→ result #${leadsTo + 1}` : ""}
-            {selected ? renderMenu() : ""}{" "}
+          {type === "activeAnswers" ? renderAnswerInfo() : ""}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div
+              className={`selectable ${selected ? "selected " : ""}`}
+              onClick={() => onSelect(pos)}
+            >
+              {letter}
+              {pos + 1}: {text.header}
+              {leadsTo != null ? `→ result #${leadsTo + 1}` : ""}
+              {selected ? renderMenu() : ""}{" "}
+            </div>
+            <span
+              className={` ${type === "results" ? "result-description" : ""}`}
+            >
+              {text.header && selected && text.description
+                ? "description: " + text.description
+                : ""}
+            </span>{" "}
           </div>
-
-          <span className="result-description">
-            {text.header && selected && text.description
-              ? "description: " + text.description
-              : ""}
-          </span>
         </div>
       </div>
     );
