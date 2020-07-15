@@ -11,7 +11,7 @@ let QuizQuestion = ({ answers, onSelect, questionNum, question }) => {
 
   return (
     <div>
-      <h4>{question}</h4>
+      <h4 style={{ textAlign: "center  " }}>{question}</h4>
       {answers.map((answer, index) => {
         return (
           <div

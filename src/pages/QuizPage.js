@@ -97,13 +97,13 @@ class QuizPage extends React.Component {
         this.scrollRef.current.scrollIntoView();
       }
       return (
-        <div ref={this.scrollRef}>
-          <div style={{ width: "300px", margin: "auto" }}>
-            <button className="submit-button" onClick={this.setRedirect}>
-              View Results!
-            </button>
-          </div>
-        </div>
+        <button
+          ref={this.scrollRef}
+          className="submit-button"
+          onClick={this.setRedirect}
+        >
+          View Results!
+        </button>
       );
     }
   };

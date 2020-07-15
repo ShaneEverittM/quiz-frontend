@@ -330,6 +330,10 @@ class NewQuizPage extends React.Component {
             While quizzes can be flexible, we suggest one answer for each result
             to ensure a well formed quiz.
           </div>
+          <div>
+            A good result description explains what the title means and why it
+            matches with the answers.
+          </div>
         </div>
       </div>
     );

@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./ResultPage.css";
 const ResultPage = (props) => {
   const computeResults = () => {
     let possibleResults = props.location.state.results;
@@ -15,9 +15,11 @@ const ResultPage = (props) => {
     }
 
     return (
-      <div style={{ marginTop: "80px" }}>
-        <h1>{possibleResults[mode].header}</h1>
-        <h4>{possibleResults[mode].description}</h4>
+      <div className="result-card">
+        <div className="result-info shadow">
+          <div className="header ">{possibleResults[mode].header}</div>
+          <>{possibleResults[mode].description}</>
+        </div>
       </div>
     );
   };

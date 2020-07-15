@@ -4,6 +4,7 @@ const serverURL = "http://localhost:8000";
 const submitQuiz = async (data) => {
   try {
     let res = await axios.post(`${serverURL}/quiz`, data);
+    return res;
   } catch (e) {
     console.log("error: ", e);
   }
