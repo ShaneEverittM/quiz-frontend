@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import QuizQuestion from "../components/QuizQuestion";
 import { getQuiz } from "../api/api.js";
+import GetTwitter from "../components/GetTwitter";
 import "./QuizPage.css";
 
 class QuizPage extends React.Component {
@@ -16,16 +17,29 @@ class QuizPage extends React.Component {
     responses: [],
     data: [],
     resultButton: false,
+    showTweets: false,
   };
   scrollRef = React.createRef();
 
   componentDidMount() {
-    this.callApi();
+    let id = this.props.location.pathname.substring(10);
+    if (id === "tweets") {
+      this.queryTweets();
+    } else this.queryQuiz(id);
   }
 
-  callApi = async () => {
-    let { data } = await getQuiz(this.props.location.pathname.substring(10));
-    if (data) {
+  queryTweets = () => {
+    this.setState({
+      showTweets: true,
+      title: "Who want's to be a twitter comedian?",
+      description:
+        "Whose twitter is funnier?? Enter two Twitter usernames to get some of their tweets",
+    });
+  };
+  queryQuiz = async (id) => {
+    let { data } = await getQuiz(id);
+    console.log("data: ", data);
+    if (data && data.quiz) {
       let { description, name } = data.quiz;
 
       let numQuestions = data.questions.length;
@@ -33,6 +47,7 @@ class QuizPage extends React.Component {
       this.setState({ data, title: name, numQuestions, description });
     } else this.setState({ redirectToError: true });
   };
+
   renderNextQuestion = () => {
     let { curQuestion } = this.state;
     if (curQuestion < this.state.data.questions.length) {
@@ -119,12 +134,27 @@ class QuizPage extends React.Component {
       this.setState({ resultButton: true });
   };
 
+  setTweets = (data) => {
+    this.setState({ data, numQuestions: data.questions.length });
+    console.log(" setting tweets. data: ", data);
+  };
+
+  renderTweetInput = () => {
+    return (
+      <div>
+        <GetTwitter setTweets={this.setTweets} />
+      </div>
+    );
+  };
+
   render() {
     return (
       <div className="quizPage-container">
-        <h3>Title: {this.state.title}</h3>
-        <p>This is a quiz:{this.state.description}</p>
+        <h3>{this.state.title}</h3>
+        <p>{this.state.description}</p>
         <p>{`${this.state.curQuestion}/${this.state.numQuestions}`}</p>
+        {this.state.showTweets ? this.renderTweetInput() : ""}
+        {console.log(this.state)}
         {this.state.questions.map((questionText, i) => {
           return (
             <div ref={this.scrollRef} key={i}>

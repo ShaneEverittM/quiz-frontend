@@ -21,6 +21,18 @@ const getQuiz = async (id) => {
   }
 };
 
+const getTweets = async (name1, name2) => {
+  try {
+    let res = await axios.get(
+      `http://172.28.58.40:3001/tweets/${name1}/${name2}`
+    );
+    console.log("res: ", res);
+    return res;
+  } catch (e) {
+    console.log("error: ", e);
+    return { data: [] };
+  }
+};
 const getQuizPreviews = async () => {
   try {
     let res = await axios.get(`${serverURL}`);
@@ -51,4 +63,4 @@ const search = async (term) => {
   }
 };
 
-export { search, getBrowse, getQuizPreviews, getQuiz, submitQuiz };
+export { search, getBrowse, getQuizPreviews, getQuiz, submitQuiz, getTweets };

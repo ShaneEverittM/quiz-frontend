@@ -1,4 +1,6 @@
 import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import QuizPage from "./pages/QuizPage";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -8,7 +10,7 @@ import NewQuizPage from "./pages/NewQuizPage";
 import Error from "./pages/ErrorPage";
 import Browse from "./pages/Browse";
 import Search from "./pages/Search";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import "./styles.css";
 const App = () => {
   return (

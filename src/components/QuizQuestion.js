@@ -12,19 +12,21 @@ let QuizQuestion = ({ answers, onSelect, questionNum, question }) => {
   return (
     <div>
       <h4 style={{ textAlign: "center  " }}>{question}</h4>
-      {answers.map((answer, index) => {
-        return (
-          <div
-            onClick={() => handleSelect(index)}
-            className={`quiz-box shadow ${
-              selection === index ? "" : "unselected"
-            }`}
-            key={index}
-          >
-            {answer.description}
-          </div>
-        );
-      })}
+      <div style={{ display: "flex" }}>
+        {answers.map((answer, index) => {
+          return (
+            <div
+              onClick={() => handleSelect(index)}
+              className={`quiz-box shadow ${
+                selection === index ? "" : "unselected"
+              }`}
+              key={index}
+            >
+              {answer.description}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
