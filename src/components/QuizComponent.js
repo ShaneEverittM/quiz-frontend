@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NewQuizComponent from "./NewQuizComponent";
 import "./QuizComponent.css";
-
+//TODO make trash/edit not reslelect quiestion
 const QuizComponent = ({
   handleDelete,
   selectedItem,

@@ -5,6 +5,7 @@ import QuizComponent from "../components/QuizComponent";
 import NewQuizTitle from "../components/NewQuizTitle";
 import { submitQuiz } from "../api/api.js";
 import "./NewQuizPage.css";
+//TODO refactor into smaller components
 
 class NewQuizPage extends React.Component {
   state = {
@@ -107,14 +108,18 @@ class NewQuizPage extends React.Component {
     this.setState({ answers });
   };
   deleteQuestion = (i) => {
-    let { questions, answers } = this.state;
+    let { questions, answers, selectedQuestion } = this.state;
     questions.splice(i, 1);
-    answers[i] = [];
+    answers.splice(i, 1);
+    selectedQuestion = -1;
+    console.log(" im delete. selectedQuestion: ", selectedQuestion);
+
     this.setState({
       questions,
       answers,
-      activeAnswers: [],
-      selectedQuestion: -1,
+      activeAnswers: this.state.answers[0],
+      selectedQuestion,
+      selectedAnswer: 0,
     });
   };
 
@@ -283,6 +288,7 @@ class NewQuizPage extends React.Component {
             </div>
 
             <div className="middle-column">
+              {console.log(this.state.selectedQuestion)}
               {this.state.selectedQuestion >= 0
                 ? this.renderColumn(
                     "activeAnswers",
