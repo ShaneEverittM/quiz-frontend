@@ -1,5 +1,6 @@
 import axios from "axios";
 const serverURL = "http://localhost:8000";
+const tweetURL = "http://localhost:3001";
 
 const submitQuiz = async (data) => {
   try {
@@ -23,9 +24,7 @@ const getQuiz = async (id) => {
 
 const getTweets = async (name1, name2) => {
   try {
-    let res = await axios.get(
-      `http://172.28.58.40:3001/tweets/${name1}/${name2}`
-    );
+    let res = await axios.get(`${tweetURL}/tweets/${name1}/${name2}`);
     console.log("res: ", res);
     return res;
   } catch (e) {

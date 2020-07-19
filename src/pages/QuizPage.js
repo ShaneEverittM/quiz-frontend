@@ -100,7 +100,11 @@ class QuizPage extends React.Component {
   };
 
   renderButton = () => {
-    if (this.state.curQuestion === 0)
+    if (
+      this.state.curQuestion === 0 &&
+      this.state.data.questions &&
+      this.state.data.questions.length > 0
+    )
       return (
         <button className="submit-button" onClick={this.renderNextQuestion}>
           Start!
