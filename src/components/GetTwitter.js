@@ -8,18 +8,18 @@ let GetTwitter = ({ setTweets }) => {
   let [numTweets, setNum] = useState(0);
   const submit = async () => {
     let { data } = await getTweets(screenName1, screenName2);
-    setNum(data.questions.length);
-    console.log("in submit. data: ", data);
-    // setName1("");
-    // setName2("");
+    if (data.questions) {
+      setNum(data.questions.length);
+
+      setTweets(data);
+    }
     setReceived(true);
-    setTweets(data);
   };
   return (
     <div>
       <div>
-        {receivedTweets && numTweets < 10
-          ? `10 tweets were requested from Twitter, they sent ${numTweets}. IDK man twitter APIs are weird.`
+        {receivedTweets && numTweets < 20
+          ? `20 tweets were requested from Twitter, they sent ${numTweets}. IDK man twitter APIs are weird.`
           : ""}
       </div>
       <input
