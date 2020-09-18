@@ -17,11 +17,6 @@ let GetTwitter = ({ setTweets }) => {
   };
   return (
     <div>
-      <div>
-        {receivedTweets && numTweets < 20
-          ? `20 tweets were requested from Twitter, they sent ${numTweets}. IDK man twitter APIs are weird.`
-          : ""}
-      </div>
       <input
         type="text"
         value={screenName1}
@@ -34,6 +29,13 @@ let GetTwitter = ({ setTweets }) => {
         onChange={(e) => setName2(e.target.value)}
       />
       <button onClick={submit}>Get Tweets</button>
+      <div>
+        {receivedTweets
+          ? numTweets < 10
+            ? `10 tweets were requested from Twitter, they sent ${numTweets}. IDK man twitter APIs are weird.`
+            : "Tweets received!"
+          : ""}
+      </div>
     </div>
   );
 };

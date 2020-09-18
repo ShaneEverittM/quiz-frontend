@@ -45,7 +45,7 @@ const NewQuizComponent = ({
       <div className="input-container">
         <label htmlFor="input">{text}</label>
         <textarea
-          maxLength="140"
+          maxLength="280"
           onKeyPress={(e) => {
             enterToSubmit(e);
           }}

@@ -25,7 +25,6 @@ const getQuiz = async (id) => {
 const getTweets = async (name1, name2) => {
   try {
     let res = await axios.get(`${tweetURL}/tweets/${name1}/${name2}`);
-    console.log("res: ", res);
     return res;
   } catch (e) {
     console.log("error: ", e);

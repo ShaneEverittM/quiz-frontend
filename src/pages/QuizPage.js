@@ -139,8 +139,13 @@ class QuizPage extends React.Component {
   };
 
   setTweets = (data) => {
-    this.setState({ data, numQuestions: data.questions.length });
-    console.log(" setting tweets. data: ", data);
+    this.setState({
+      data,
+      numQuestions: data.questions.length,
+      questions: [],
+      responses: [],
+      curQuestion: 0,
+    });
   };
 
   renderTweetInput = () => {
@@ -158,7 +163,6 @@ class QuizPage extends React.Component {
         <p>{this.state.description}</p>
         <p>{`${this.state.curQuestion}/${this.state.numQuestions}`}</p>
         {this.state.showTweets ? this.renderTweetInput() : ""}
-        {console.log(this.state)}
         {this.state.questions.map((questionText, i) => {
           return (
             <div ref={this.scrollRef} key={i}>
