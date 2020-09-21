@@ -35,6 +35,13 @@ const Navbar = () => {
         >
           Search
         </NavLink>
+        <NavLink
+          activeClassName="current-tab"
+          className="navbar-content"
+          to="/login"
+        >
+          Login
+        </NavLink>
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import NewQuizPage from "./pages/NewQuizPage";
 import Error from "./pages/ErrorPage";
 import Browse from "./pages/Browse";
 import Search from "./pages/Search";
+import Login from "./pages/Login";
 
 import "./styles.css";
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
       <Route path="/error" component={Error} />
       <Route path="/browse" component={Browse} />
       <Route path="/search" component={Search} />
+      <Route path="/login" component={Login} />
     </Router>
   );
 };
