@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = () => {
+const Navbar = ({ log }) => {
+  {
+    console.log("log: ", log);
+  }
   return (
     <div className="header">
       <div className="navbar">
@@ -35,12 +38,15 @@ const Navbar = () => {
         >
           Search
         </NavLink>
+        {
+          // Conditionally render login/logout
+        }
         <NavLink
           activeClassName="current-tab"
           className="navbar-content"
           to="/login"
         >
-          Login
+          {log}
         </NavLink>
       </div>
     </div>

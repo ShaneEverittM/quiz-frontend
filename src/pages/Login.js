@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Login = () => {
+const Login = ({ log, setLog }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
   return (
     <div>
       login:
-      {console.log(userName)}
       <input
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
@@ -19,7 +19,7 @@ const Login = () => {
       />
       <input
         type="submit"
-        onClick={() => console.log(userName, password)}
+        onClick={() => setLog(!log)} // some sort of back end api request
         value="login"
       />
     </div>
