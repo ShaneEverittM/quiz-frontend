@@ -22,6 +22,63 @@ const getQuiz = async (id) => {
   }
 };
 
+const register = async (username, password) => {
+  let data = { name: "anthony", email: username, password };
+  try {
+    let res = await axios.post(`${serverURL}/users/create`, data);
+
+    return res;
+  } catch (e) {
+    console.log("error: ", e);
+    return { data: [] };
+  }
+};
+
+const checkLogin = async (id) => {
+  try {
+    let res = await axios.get(`${serverURL}/users/cookies/${id}`, {
+      withCredentials: true,
+    });
+    console.log("res: ", res.data);
+
+    return res;
+  } catch (e) {
+    console.log("error: ", e);
+    return { data: [] };
+  }
+};
+
+const login = async (username, password) => {
+  let data = { username, password };
+  try {
+    let res = await axios.post(`${serverURL}/users/login`, data, {
+      withCredentials: true,
+    });
+    console.log("res: ", res);
+    return res;
+  } catch (e) {
+    console.log("error: ", e);
+    return { data: [] };
+  }
+};
+
+const logout = async () => {
+  try {
+    let res = await axios.post(
+      `${serverURL}/users/logout`,
+      { 1: 1 },
+      {
+        withCredentials: true,
+      }
+    );
+    console.log("res: ", res.data);
+
+    return res;
+  } catch (e) {
+    console.log("error: ", e);
+    return { data: [] };
+  }
+};
 const getTweets = async (name1, name2) => {
   try {
     let res = await axios.get(`${tweetURL}/tweets/${name1}/${name2}`);
@@ -61,4 +118,15 @@ const search = async (term) => {
   }
 };
 
-export { search, getBrowse, getQuizPreviews, getQuiz, submitQuiz, getTweets };
+export {
+  search,
+  getBrowse,
+  getQuizPreviews,
+  getQuiz,
+  submitQuiz,
+  getTweets,
+  register,
+  login,
+  checkLogin,
+  logout,
+};

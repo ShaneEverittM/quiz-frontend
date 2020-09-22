@@ -11,6 +11,7 @@ import Error from "./pages/ErrorPage";
 import Browse from "./pages/Browse";
 import Search from "./pages/Search";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 import "./styles.css";
 class App extends React.Component {
@@ -37,6 +38,7 @@ class App extends React.Component {
         <Route path="/error" component={Error} />
         <Route path="/browse" component={Browse} />
         <Route path="/search" component={Search} />
+        <Route path="/register" component={Register} />
         <Route
           path="/login"
           render={(props) => (

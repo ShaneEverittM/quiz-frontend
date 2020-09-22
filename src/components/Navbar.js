@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = ({ log }) => {
-  {
-    console.log("log: ", log);
-  }
   return (
     <div className="header">
       <div className="navbar">
@@ -46,7 +43,7 @@ const Navbar = ({ log }) => {
           className="navbar-content"
           to="/login"
         >
-          {log == true ? "login" : "logout"}
+          {log ? "login" : "logout"}
         </NavLink>
       </div>
     </div>
