@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import QuizPage from "./pages/QuizPage";
@@ -14,13 +14,9 @@ import Login from "./pages/Login";
 
 import "./styles.css";
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      value: localStorage.getItem("logStatus") || false,
-    };
-    this.setValue = this.setValue.bind(this);
-  }
+  state = {
+    value: localStorage.getItem("logStatus") || false,
+  };
 
   setValue = (value) => {
     console.log("value: ", this.state.value);
@@ -31,10 +27,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        {/* <Navbar log={"this.state.value"} /> */}
-        <Navbar
-          render={(props) => <Navbar {...props} log={this.state.value} />}
-        />
+        <Navbar log={this.state.value} />
 
         <Route path="/" exact component={Home} />
         <Route path="/takequiz" component={QuizPage} />

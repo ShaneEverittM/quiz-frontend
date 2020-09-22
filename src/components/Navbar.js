@@ -46,7 +46,7 @@ const Navbar = ({ log }) => {
           className="navbar-content"
           to="/login"
         >
-          {log}
+          {log == true ? "login" : "logout"}
         </NavLink>
       </div>
     </div>
