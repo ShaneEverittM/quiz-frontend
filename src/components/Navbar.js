@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = ({ log }) => {
+  console.log(" log : ", log);
   return (
     <div className="header">
       <div className="navbar">
@@ -35,16 +36,23 @@ const Navbar = ({ log }) => {
         >
           Search
         </NavLink>
-        {
-          // Conditionally render login/logout
-        }
-        <NavLink
-          activeClassName="current-tab"
-          className="navbar-content"
-          to="/login"
-        >
-          {log ? "login" : "logout"}
-        </NavLink>
+        {log == "false" || !log ? ( // I hate javascript
+          <NavLink
+            activeClassName="current-tab"
+            className="navbar-content"
+            to="/login"
+          >
+            Login
+          </NavLink>
+        ) : (
+          <NavLink
+            activeClassName="current-tab"
+            className="navbar-content"
+            to="/profile"
+          >
+            Your profile
+          </NavLink>
+        )}
       </div>
     </div>
   );

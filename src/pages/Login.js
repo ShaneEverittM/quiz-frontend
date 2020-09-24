@@ -1,13 +1,34 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import { login, checkLogin, logout } from "../api/api";
+import Cookies from "js-cookie";
 
-const Login = ({ log, setLog }) => {
+const Login = ({ setLog, log }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(log);
+  const [loginFail, setLoginFail] = useState(false);
 
+  const handleLogin = async (name, pass) => {
+    let res = await login(name, pass);
+    if (res) {
+      setLog(true);
+      Cookies.set("token", res);
+      setRedirect(true);
+    } else {
+      setLoginFail(true);
+    }
+  };
+  const handleLogout = async () => {
+    await logout();
+    setLog(false);
+    Cookies.remove("token");
+  };
   return (
     <div>
-      <div>
+      {redirect ? <Redirect to={"profile"} /> : ""}
+
+      <div style={{ display: "flex", flexDirection: "column" }}>
         login:
         <input
           value={userName}
@@ -21,20 +42,21 @@ const Login = ({ log, setLog }) => {
         />
         <input
           type="submit"
-          onClick={() => login(userName, password)} // some sort of back end api request
+          onClick={() => handleLogin(userName, password)} // some sort of back end api request
           value="login"
         />
         <input
           type="submit"
-          onClick={() => checkLogin(1)} // some sort of back end api request
+          onClick={() => checkLogin(Cookies.get("token") || 0)} // some sort of back end api request
           value="bad"
         />
-        <input
+        {/* <input
           type="submit"
-          onClick={() => logout()} // some sort of back end api request
+          onClick={() => handleLogout()} // some sort of back end api request
           value="logout"
-        />
+        /> */}
       </div>
+      <>{loginFail ? "invalid username or password" : ""}</>
 
       <div>
         {" "}

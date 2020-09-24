@@ -54,8 +54,8 @@ const login = async (username, password) => {
     let res = await axios.post(`${serverURL}/users/login`, data, {
       withCredentials: true,
     });
-    console.log("res: ", res);
-    return res;
+    console.log("res.data: ", res.data);
+    return res.data;
   } catch (e) {
     console.log("error: ", e);
     return { data: [] };

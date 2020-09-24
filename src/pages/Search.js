@@ -23,7 +23,6 @@ const Search = () => {
   const enterToSubmit = (e) => {
     //this may not work on every browser/keyboard combo
     if (e.key.toLowerCase() === "enter") handleSubmit();
-    console.log("e: ", e);
   };
   return (
     <div>

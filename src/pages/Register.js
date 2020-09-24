@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { register } from "../api/api";
+import { Redirect } from "react-router-dom";
 
-const Register = ({ log, setLog }) => {
+const Register = ({ setLog }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
   const [confpassword, setConfpassword] = useState("");
 
   const validData = () => {
@@ -16,13 +18,20 @@ const Register = ({ log, setLog }) => {
     );
   };
 
-  const submit = () => {
-    if (validData()) register(userName, password);
+  const submit = async () => {
+    if (validData()) {
+      let res = await register(userName, password);
+      if (res) {
+        setLog(true);
+        setRedirect(true);
+      }
+    }
   };
+
   return (
     <div>
-      <div>
-        login:
+      {redirect ? <Redirect to={"profile"} /> : ""}
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <label htmlFor="usernameField">username</label>
         <input
           id="usernameField"

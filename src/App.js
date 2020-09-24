@@ -1,4 +1,5 @@
 import React from "react";
+import Cookies from "js-cookie";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import QuizPage from "./pages/QuizPage";
@@ -12,23 +13,25 @@ import Browse from "./pages/Browse";
 import Search from "./pages/Search";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile";
 
 import "./styles.css";
 class App extends React.Component {
   state = {
-    value: localStorage.getItem("logStatus") || false,
+    loggedIn: Cookies.get("logStatus") == "true",
   };
 
-  setValue = (value) => {
-    console.log("value: ", this.state.value);
-    this.setState({ value });
-    // localStorage.setItem("logStatus", value);
+  setLog = (loggedIn) => {
+    console.log("value: ", this.state.loggedIn);
+    this.setState({ loggedIn });
+    Cookies.set("logStatus", loggedIn);
   };
 
   render() {
     return (
       <Router>
-        <Navbar log={this.state.value} />
+        {console.log("reloading app", this.state.loggedIn)}
+        <Navbar log={this.state.loggedIn} />
 
         <Route path="/" exact component={Home} />
         <Route path="/takequiz" component={QuizPage} />
@@ -38,11 +41,30 @@ class App extends React.Component {
         <Route path="/error" component={Error} />
         <Route path="/browse" component={Browse} />
         <Route path="/search" component={Search} />
-        <Route path="/register" component={Register} />
+        <Route
+          path="/register"
+          render={(props) => (
+            <Register
+              {...props}
+              log={this.state.loggedIn}
+              setLog={this.setLog}
+            />
+          )}
+        />
+        <Route
+          path="/profile"
+          render={(props) => (
+            <Profile
+              {...props}
+              setLog={this.setLog}
+              log={this.state.loggedIn}
+            />
+          )}
+        />
         <Route
           path="/login"
           render={(props) => (
-            <Login {...props} log={this.state.value} setLog={this.setValue} />
+            <Login {...props} setLog={this.setLog} log={this.state.loggedIn} />
           )}
         />
       </Router>
