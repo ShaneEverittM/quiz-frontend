@@ -1,4 +1,6 @@
 import axios from "axios";
+
+import Cookies from "js-cookie";
 const serverURL = "http://localhost:8000";
 const tweetURL = "http://localhost:3001";
 
@@ -26,7 +28,6 @@ const register = async (username, password) => {
   let data = { name: "anthony", email: username, password };
   try {
     let res = await axios.post(`${serverURL}/users/create`, data);
-
     return res;
   } catch (e) {
     console.log("error: ", e);
@@ -35,6 +36,7 @@ const register = async (username, password) => {
 };
 
 const checkLogin = async (id) => {
+  console.log('Cookies.get("token"): ', Cookies.get("token"));
   try {
     let res = await axios.get(`${serverURL}/users/cookies/${id}`, {
       withCredentials: true,

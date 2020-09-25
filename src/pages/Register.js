@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { register } from "../api/api";
 import { Redirect } from "react-router-dom";
-
+import Cookies from "js-cookie";
 const Register = ({ setLog }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +21,10 @@ const Register = ({ setLog }) => {
   const submit = async () => {
     if (validData()) {
       let res = await register(userName, password);
+      console.log("res: ", res);
       if (res) {
+        Cookies.set("token", res.id);
+        Cookies.set("user_id", res.id);
         setLog(true);
         setRedirect(true);
       }

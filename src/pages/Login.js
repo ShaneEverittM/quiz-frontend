@@ -13,7 +13,8 @@ const Login = ({ setLog, log }) => {
     let res = await login(name, pass);
     if (res) {
       setLog(true);
-      Cookies.set("token", res);
+      Cookies.set("token", res.id);
+      Cookies.set("user_id", res.id);
       setRedirect(true);
     } else {
       setLoginFail(true);

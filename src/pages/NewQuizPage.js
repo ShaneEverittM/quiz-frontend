@@ -1,10 +1,13 @@
 import React from "react";
 import { Prompt } from "react-router-dom";
+import Cookies from "js-cookie";
+
 import NewQuizComponent from "../components/NewQuizComponent";
 import QuizComponent from "../components/QuizComponent";
 import NewQuizTitle from "../components/NewQuizTitle";
 import { submitQuiz } from "../api/api.js";
 import "./NewQuizPage.css";
+
 //TODO refactor into smaller components
 
 class NewQuizPage extends React.Component {
@@ -112,7 +115,6 @@ class NewQuizPage extends React.Component {
     questions.splice(i, 1);
     answers.splice(i, 1);
     selectedQuestion = -1;
-    console.log(" im delete. selectedQuestion: ", selectedQuestion);
 
     this.setState({
       questions,
@@ -187,8 +189,11 @@ class NewQuizPage extends React.Component {
   };
 
   packData = () => {
+    let quiz = this.state.quizHeader;
+    quiz["u_id"] = Number(Cookies.get("token")) || 1;
+    console.log('Cookies.get("user_id"): ', Cookies.get("user_id"));
     return {
-      quiz: this.state.quizHeader,
+      quiz,
       questions: this.state.questions,
       answers: this.state.answers,
       results: this.state.results,
@@ -226,6 +231,7 @@ class NewQuizPage extends React.Component {
 
   submit = () => {
     let dataToSend = this.packData();
+    console.log("dataToSend: ", dataToSend);
     let errorStatus = this.validate(dataToSend);
     if (errorStatus === 0) {
       this.setState({ error: false });
@@ -288,7 +294,6 @@ class NewQuizPage extends React.Component {
             </div>
 
             <div className="middle-column">
-              {console.log(this.state.selectedQuestion)}
               {this.state.selectedQuestion >= 0
                 ? this.renderColumn(
                     "activeAnswers",
