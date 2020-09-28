@@ -10,15 +10,19 @@ const Login = ({ setLog, log }) => {
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(log);
   const [loginFail, setLoginFail] = useState(false);
+  const [buttonText, setButtonText] = useState("Login");
 
   const handleLogin = async (name, pass) => {
+    setButtonText("loading...");
     let res = await login(name, pass);
-    if (res) {
+    console.log("res: ", res);
+    if (res.data && res.data.length != 0) {
       setLog(true);
       Cookies.set("token", res.id);
       Cookies.set("user_id", res.id);
       setRedirect(true);
     } else {
+      setButtonText("Login");
       setLoginFail(true);
     }
   };
@@ -49,14 +53,14 @@ const Login = ({ setLog, log }) => {
           className="login-button"
           onClick={() => handleLogin(userName, password)} // some sort of back end api request
         >
-          Login
+          {buttonText}
         </button>
         <div>
           {" "}
           Not registered? <a href="/register"> Sign up here!</a>
         </div>
+        {loginFail ? "invalid username or password" : ""}
       </div>
-      <>{loginFail ? "invalid username or password" : ""}</>
     </div>
   );
 };

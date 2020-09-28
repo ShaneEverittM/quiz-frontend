@@ -11,6 +11,9 @@ const Register = ({ setLog }) => {
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [confpassword, setConfpassword] = useState("");
+  const [usernameFeedback, setUsernameFeedback] = useState("");
+  const [passwordFeedback, setPasswordFeedback] = useState("");
+  const [buttonText, setButtonText] = useState("Register");
 
   const validData = () => {
     return (
@@ -24,17 +27,32 @@ const Register = ({ setLog }) => {
 
   const submit = async () => {
     if (validData()) {
+      setButtonText("loading...");
       let res = await register(userName, password);
       console.log("res: ", res);
-      if (res) {
+      if (res.data && res.data.length != 0) {
         Cookies.set("token", res.id);
-        Cookies.set("user_id", res.id);
+        // Cookies.set("user_id", res.id);
         setLog(true);
         setRedirect(true);
+      } else {
+        setButtonText("Register");
+        setUsernameFeedback("Something went Wrong, please try again later");
       }
     }
   };
-
+  const updateUserName = (input) => {
+    setUserName(input);
+    if (input.length < 4)
+      setUsernameFeedback("Username must be atleast 4 characters Long\n");
+    else setUsernameFeedback("");
+  };
+  const updatePassword = (input) => {
+    setPassword(input);
+    if (input.length < 4)
+      setPasswordFeedback("Password must be atleast 4 characters Long\n");
+    else setPasswordFeedback("");
+  };
   return (
     <div>
       {redirect ? <Redirect to={"profile"} /> : ""}
@@ -44,7 +62,9 @@ const Register = ({ setLog }) => {
           className="login-input"
           id="usernameField"
           value={userName}
-          onChange={(e) => setUserName(e.target.value)}
+          onChange={(e) => {
+            updateUserName(e.target.value);
+          }}
           type="text"
         />
         <label htmlFor="passwordField">password</label>
@@ -52,7 +72,7 @@ const Register = ({ setLog }) => {
           className="login-input"
           id="passwordField"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => updatePassword(e.target.value)}
           type="password"
         />
         <label htmlFor="confPassword">Confirm password</label>
@@ -67,15 +87,17 @@ const Register = ({ setLog }) => {
           className="login-button"
           onClick={() => submit()} // some sort of back end api request
         >
-          Register
+          {buttonText}
         </button>
+        <div>{usernameFeedback}</div>
+        <div>{passwordFeedback}</div>
+        {confpassword && confpassword !== password
+          ? "Passwords do not match"
+          : ""}
         <div>
           Already registered? <a href="/login"> Sign in here!</a>
         </div>
       </div>
-      {confpassword && confpassword !== password
-        ? "passwords do not match"
-        : ""}
     </div>
   );
 };
