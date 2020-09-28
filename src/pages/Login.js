@@ -3,6 +3,8 @@ import { Redirect } from "react-router-dom";
 import { login, checkLogin, logout } from "../api/api";
 import Cookies from "js-cookie";
 
+import "./Login.css";
+
 const Login = ({ setLog, log }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -29,40 +31,32 @@ const Login = ({ setLog, log }) => {
     <div>
       {redirect ? <Redirect to={"profile"} /> : ""}
 
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="search-box">
         login:
         <input
+          className="login-input"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           type="text"
         />
         <input
+          className="login-input"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
         />
-        <input
-          type="submit"
+        <button
+          className="login-button"
           onClick={() => handleLogin(userName, password)} // some sort of back end api request
-          value="login"
-        />
-        <input
-          type="submit"
-          onClick={() => checkLogin(Cookies.get("token") || 0)} // some sort of back end api request
-          value="bad"
-        />
-        {/* <input
-          type="submit"
-          onClick={() => handleLogout()} // some sort of back end api request
-          value="logout"
-        /> */}
+        >
+          Login
+        </button>
+        <div>
+          {" "}
+          Not registered? <a href="/register"> Sign up here!</a>
+        </div>
       </div>
       <>{loginFail ? "invalid username or password" : ""}</>
-
-      <div>
-        {" "}
-        Not registered? <a href="/register"> Sign up here!</a>
-      </div>
     </div>
   );
 };

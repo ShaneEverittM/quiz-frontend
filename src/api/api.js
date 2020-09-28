@@ -13,6 +13,18 @@ const submitQuiz = async (data) => {
   }
 };
 
+const getUserQuizzes = async (user_id) => {
+  try {
+    let res = await axios.get(`${serverURL}/quizzes?user_id=${user_id}`, {
+      withCredentials: true,
+    });
+    console.log("res: ", res);
+    return res;
+  } catch (e) {
+    console.log("error: ", e);
+  }
+};
+
 const getQuiz = async (id) => {
   try {
     let res = await axios.get(`${serverURL}/quiz/${id}`);
@@ -131,4 +143,5 @@ export {
   login,
   checkLogin,
   logout,
+  getUserQuizzes,
 };

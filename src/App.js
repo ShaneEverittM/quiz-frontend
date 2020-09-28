@@ -1,7 +1,7 @@
 import React from "react";
 import Cookies from "js-cookie";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
+import { checkLogin as cl } from "./api/utils";
 import QuizPage from "./pages/QuizPage";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";

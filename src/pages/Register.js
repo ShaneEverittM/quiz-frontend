@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { register } from "../api/api";
 import { Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
+
+import "./Login.css";
+
+//TODO refactor with login
 const Register = ({ setLog }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -34,9 +38,10 @@ const Register = ({ setLog }) => {
   return (
     <div>
       {redirect ? <Redirect to={"profile"} /> : ""}
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="search-box">
         <label htmlFor="usernameField">username</label>
         <input
+          className="login-input"
           id="usernameField"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
@@ -44,6 +49,7 @@ const Register = ({ setLog }) => {
         />
         <label htmlFor="passwordField">password</label>
         <input
+          className="login-input"
           id="passwordField"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -51,23 +57,25 @@ const Register = ({ setLog }) => {
         />
         <label htmlFor="confPassword">Confirm password</label>
         <input
+          className="login-input"
           id="confPassword"
           value={confpassword}
           onChange={(e) => setConfpassword(e.target.value)}
           type="password"
         />
-        <input
-          type="submit"
+        <button
+          className="login-button"
           onClick={() => submit()} // some sort of back end api request
-          value="register"
-        />
+        >
+          Register
+        </button>
+        <div>
+          Already registered? <a href="/login"> Sign in here!</a>
+        </div>
       </div>
       {confpassword && confpassword !== password
         ? "passwords do not match"
         : ""}
-      <div>
-        Already registered? <a href="/login"> Sign in here!</a>
-      </div>
     </div>
   );
 };

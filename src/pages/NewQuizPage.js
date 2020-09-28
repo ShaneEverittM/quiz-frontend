@@ -6,6 +6,7 @@ import NewQuizComponent from "../components/NewQuizComponent";
 import QuizComponent from "../components/QuizComponent";
 import NewQuizTitle from "../components/NewQuizTitle";
 import { submitQuiz } from "../api/api.js";
+
 import "./NewQuizPage.css";
 
 //TODO refactor into smaller components

@@ -1,0 +1,15 @@
+.login-input {
+  height: 30px;
+  font-size: large;
+  max-width: 50%;
+}
+
+.login-button {
+  border: none;
+  width: 50%;
+  color: white;
+  background-color: green;
+  margin-top: 15px;
+  font-size: large;
+  padding: 3px;
+}
