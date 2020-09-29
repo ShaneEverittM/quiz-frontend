@@ -192,7 +192,7 @@ class NewQuizPage extends React.Component {
   packData = () => {
     let quiz = this.state.quizHeader;
     quiz["u_id"] = Number(Cookies.get("token")) || 1;
-    console.log('Cookies.get("user_id"): ', Cookies.get("user_id"));
+    console.log('Cookies.get("token"): ', Cookies.get("token"));
     return {
       quiz,
       questions: this.state.questions,

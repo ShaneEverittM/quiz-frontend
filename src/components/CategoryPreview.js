@@ -8,7 +8,7 @@ let CategoryPreview = ({ quizList, categoryName, admin }) => {
     if (
       window.confirm("Are you sure you want to delete?\nThis cannot be undone")
     )
-      deleteQuiz();
+      deleteQuiz(id, admin);
   };
   return (
     <div>

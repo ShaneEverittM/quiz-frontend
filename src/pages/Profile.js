@@ -7,10 +7,12 @@ import CategoryPreview from "../components/CategoryPreview";
 
 import "./Profile.css";
 import "../styles.css";
+//TODO pass delete as prop
 const Profile = ({ setLog, log }) => {
   //on mount check for user quizzes
   const [redirect, setRedirect] = useState(!log);
   const [quizzes, setQuizzes] = useState([]);
+  const [user_id, setUser_id] = useState(0);
 
   const handleLogout = async () => {
     await logout();
@@ -21,6 +23,7 @@ const Profile = ({ setLog, log }) => {
   useEffect(() => {
     async function fetchData() {
       try {
+        // setUser_id(Cookies.get("token"));
         let { data } = await getUserQuizzes(Cookies.get("token"));
         if (data) setQuizzes(data);
       } catch (e) {
@@ -45,7 +48,7 @@ const Profile = ({ setLog, log }) => {
         <CategoryPreview
           quizList={quizzes}
           categoryName="Your Quizzes"
-          admin={true}
+          admin={Cookies.get("token")}
         />
       }
     </div>

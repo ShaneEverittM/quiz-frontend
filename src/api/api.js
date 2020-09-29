@@ -49,9 +49,11 @@ const register = async (username, password) => {
   }
 };
 
-const deleteQuiz = async (q_id) => {
+const deleteQuiz = async (q_id, u_id) => {
   try {
-    let res = await axios.delete(`${serverURL}/quiz/${q_id}`);
+    let res = await axiosWithCookies.delete(
+      `${serverURL}/quiz?quiz_id=${q_id}&user_id=${u_id}`
+    );
     return res;
   } catch (e) {
     console.log("error: ", e);
