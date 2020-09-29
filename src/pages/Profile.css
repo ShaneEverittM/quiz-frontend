@@ -1,0 +1,17 @@
+.logout-button {
+  display: flex;
+  justify-content: center;
+  align-self: flex-end;
+  color: white;
+  border: none;
+  width: 20%;
+  color: white;
+  background-color: red;
+  font-size: large;
+  padding: 3px;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+}

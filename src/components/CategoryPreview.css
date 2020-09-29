@@ -10,3 +10,14 @@
   font-size: large;
   font-weight: 200;
 }
+
+.previewIcon {
+  transition-duration: 0.3s;
+  transform-origin: left top;
+  width: 25px;
+  justify-self: right;
+}
+.previewIcon:hover {
+  transform: scale(1.5);
+  cursor: pointer;
+}

@@ -4,6 +4,8 @@ import Cookies from "js-cookie";
 const serverURL = "http://localhost:8000";
 const tweetURL = "http://localhost:3001";
 
+const axiosWithCookies = axios.create({ withCredentials: true });
+
 const submitQuiz = async (data) => {
   try {
     let res = await axios.post(`${serverURL}/quiz`, data);
@@ -15,9 +17,9 @@ const submitQuiz = async (data) => {
 
 const getUserQuizzes = async (user_id) => {
   try {
-    let res = await axios.get(`${serverURL}/quizzes?user_id=${user_id}`, {
-      withCredentials: true,
-    });
+    let res = await axiosWithCookies.get(
+      `${serverURL}/quizzes?user_id=${user_id}`
+    );
     console.log("res: ", res);
     return res;
   } catch (e) {
@@ -47,12 +49,20 @@ const register = async (username, password) => {
   }
 };
 
+const deleteQuiz = async (q_id) => {
+  try {
+    let res = await axios.delete(`${serverURL}/quiz/${q_id}`);
+    return res;
+  } catch (e) {
+    console.log("error: ", e);
+    return { data: [] };
+  }
+};
+
 const checkLogin = async (id) => {
   console.log('Cookies.get("token"): ', Cookies.get("token"));
   try {
-    let res = await axios.get(`${serverURL}/users/cookies/${id}`, {
-      withCredentials: true,
-    });
+    let res = await axiosWithCookies.get(`${serverURL}/users/cookies/${id}`);
     console.log("res: ", res.data);
 
     return res;
@@ -65,9 +75,7 @@ const checkLogin = async (id) => {
 const login = async (username, password) => {
   let data = { username, password };
   try {
-    let res = await axios.post(`${serverURL}/users/login`, data, {
-      withCredentials: true,
-    });
+    let res = await axiosWithCookies.post(`${serverURL}/users/login`, data);
     console.log("res.data: ", res.data);
     return res.data;
   } catch (e) {
@@ -78,13 +86,9 @@ const login = async (username, password) => {
 
 const logout = async () => {
   try {
-    let res = await axios.post(
-      `${serverURL}/users/logout`,
-      { 1: 1 },
-      {
-        withCredentials: true,
-      }
-    );
+    let res = await axiosWithCookies.post(`${serverURL}/users/logout`, {
+      1: 1,
+    });
     console.log("res: ", res.data);
 
     return res;
@@ -144,4 +148,5 @@ export {
   checkLogin,
   logout,
   getUserQuizzes,
+  deleteQuiz,
 };

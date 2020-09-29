@@ -5,6 +5,8 @@ import { Redirect } from "react-router-dom";
 import { logout, checkLogin, getUserQuizzes } from "../api/api";
 import CategoryPreview from "../components/CategoryPreview";
 
+import "./Profile.css";
+import "../styles.css";
 const Profile = ({ setLog, log }) => {
   //on mount check for user quizzes
   const [redirect, setRedirect] = useState(!log);
@@ -17,7 +19,6 @@ const Profile = ({ setLog, log }) => {
     setRedirect(true);
   };
   useEffect(() => {
-    //TODO make it stop crashing
     async function fetchData() {
       try {
         let { data } = await getUserQuizzes(Cookies.get("token"));
@@ -30,19 +31,23 @@ const Profile = ({ setLog, log }) => {
   }, []);
 
   return (
-    <div>
+    <div className="profile-container">
       {redirect ? <Redirect to={"login"} /> : ""}
-      <input
+      <button
+        className="logout-button"
         type="submit"
         onClick={() => handleLogout()} // some sort of back end api request
-        value="logout"
-      />
-      <input
-        type="submit"
-        onClick={() => checkLogin(Cookies.get("token") || 0)} // some sort of back end api request
-        value="bad"
-      />
-      {<CategoryPreview quizList={quizzes} categoryName="Your Quizzes" />}
+      >
+        Logout
+      </button>
+
+      {
+        <CategoryPreview
+          quizList={quizzes}
+          categoryName="Your Quizzes"
+          admin={true}
+        />
+      }
     </div>
   );
 };

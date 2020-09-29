@@ -16,7 +16,7 @@ const Login = ({ setLog, log }) => {
     setButtonText("loading...");
     let res = await login(name, pass);
     console.log("res: ", res);
-    if (res.data && res.data.length != 0) {
+    if (res) {
       setLog(true);
       Cookies.set("token", res.id);
       Cookies.set("user_id", res.id);
