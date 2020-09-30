@@ -16,7 +16,7 @@ class Profile extends React.Component {
   };
   async componentDidMount() {
     try {
-      let { data } = await getUserQuizzes(this.state.user_id);
+      let { data } = await getUserQuizzes(Cookies.get("token"));
       if (data) this.setState({ quizzes: data });
     } catch (e) {
       console.log(e);

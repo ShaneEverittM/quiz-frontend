@@ -34,7 +34,8 @@ const Register = ({ setLog }) => {
       setButtonText("loading...");
       let res = await register(userName, password);
       if (res.data && res.data.length !== 0) {
-        Cookies.set("token", res.id);
+        console.log("res ", res);
+        Cookies.set("token", res.data);
         setLog(true);
         setRedirect(true);
       } else {
