@@ -17,14 +17,18 @@ const Register = ({ setLog }) => {
 
   const validData = () => {
     return (
-      userName &&
+      validateEmail(userName) &&
       password &&
       password === confpassword &&
       userName.length >= 4 &&
       password.length >= 4
     );
   };
-
+  const validateEmail = (email) => {
+    // shamelessly stolen from stackoverflow
+    const re = /\S+@\S+\.\S+/;
+    return re.test(String(email).toLowerCase());
+  };
   const submit = async () => {
     if (validData()) {
       setButtonText("loading...");
@@ -37,7 +41,7 @@ const Register = ({ setLog }) => {
         setButtonText("Register");
         setUsernameFeedback("Something went Wrong, please try again later");
       }
-    }
+    } else setUsernameFeedback("Error in email");
   };
   const updateUserName = (input) => {
     setUserName(input);
@@ -55,15 +59,16 @@ const Register = ({ setLog }) => {
     <div>
       {redirect ? <Redirect to={"profile"} /> : ""}
       <div className="search-box">
-        <label htmlFor="usernameField">username</label>
+        <label htmlFor="usernameField">email</label>
         <input
           className="login-input"
+          placeholder="name@example.domain"
           id="usernameField"
           value={userName}
           onChange={(e) => {
             updateUserName(e.target.value);
           }}
-          type="text"
+          type="email"
         />
         <label htmlFor="passwordField">password</label>
         <input
