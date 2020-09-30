@@ -1,34 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Quiz from "../components/Quiz";
 import "./CategoryPreview.css";
-import { deleteQuiz } from "../api/api";
-let CategoryPreview = ({ quizList, categoryName, admin }) => {
-  let handleDelete = (id) => {
-    if (
-      window.confirm("Are you sure you want to delete?\nThis cannot be undone")
-    )
-      deleteQuiz(id, admin);
-  };
+
+let CategoryPreview = ({ quizList, categoryName, user, deleteButton }) => {
   return (
     <div>
+      {console.log("quizList: ", quizList)}
       <p className="quiz-category">{categoryName}</p>
       <div className="quiz-preview">
         {quizList.map((quizObj, i) => {
           return (
-            <div style={{ display: "grid" }} id={quizObj.id}>
-              {admin ? (
-                <span
-                  role="img"
-                  aria-label="trash"
-                  className="previewIcon"
-                  onClick={() => handleDelete(quizObj.id)}
-                >
-                  🗑️
-                </span>
-              ) : (
-                ""
-              )}
+            <div style={{ display: "grid" }} key={quizObj.id}>
+              {user ? deleteButton(quizObj.id, i) : ""}
               <Link
                 to={`/takequiz/${quizObj.id}`}
                 id={quizObj.id}

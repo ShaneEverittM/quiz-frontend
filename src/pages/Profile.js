@@ -2,57 +2,83 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { Redirect } from "react-router-dom";
 
-import { logout, checkLogin, getUserQuizzes } from "../api/api";
+import { logout, getUserQuizzes, deleteQuiz } from "../api/api";
 import CategoryPreview from "../components/CategoryPreview";
 
 import "./Profile.css";
 import "../styles.css";
-//TODO pass delete as prop
-const Profile = ({ setLog, log }) => {
-  //on mount check for user quizzes
-  const [redirect, setRedirect] = useState(!log);
-  const [quizzes, setQuizzes] = useState([]);
-  const [user_id, setUser_id] = useState(0);
 
-  const handleLogout = async () => {
-    await logout();
-    setLog(false);
-    Cookies.remove("token");
-    setRedirect(true);
+class Profile extends React.Component {
+  state = {
+    redirect: false,
+    quizzes: [],
+    user_id: Cookies.get("token"),
   };
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // setUser_id(Cookies.get("token"));
-        let { data } = await getUserQuizzes(Cookies.get("token"));
-        if (data) setQuizzes(data);
-      } catch (e) {
-        console.log(e);
-      }
+  async componentDidMount() {
+    try {
+      let { data } = await getUserQuizzes(this.state.user_id);
+      if (data) this.setState({ quizzes: data });
+      console.log("data: ", data);
+    } catch (e) {
+      console.log(e);
     }
-    fetchData();
-  }, []);
+  }
 
-  return (
-    <div className="profile-container">
-      {redirect ? <Redirect to={"login"} /> : ""}
-      <button
-        className="logout-button"
-        type="submit"
-        onClick={() => handleLogout()} // some sort of back end api request
+  handleLogout = async () => {
+    await logout();
+    this.props.setLog(false);
+    Cookies.remove("token");
+    this.setState({ redirect: true });
+  };
+
+  handleDelete = (id, pos) => {
+    if (
+      window.confirm("Are you sure you want to delete?\nThis cannot be undone")
+    ) {
+      //deleteQuiz(id, user_id);
+      let quizzes = this.state.quizzes;
+      quizzes.splice(pos, 1);
+      console.log("_: ", quizzes);
+      this.setState(quizzes);
+    }
+  };
+
+  deleteButton = (id, pos) => {
+    return (
+      <span
+        role="img"
+        aria-label="trash"
+        className="previewIcon"
+        onClick={() => this.handleDelete(id, pos)}
       >
-        Logout
-      </button>
+        🗑️
+      </span>
+    );
+  };
 
-      {
-        <CategoryPreview
-          quizList={quizzes}
-          categoryName="Your Quizzes"
-          admin={Cookies.get("token")}
-        />
-      }
-    </div>
-  );
-};
+  render() {
+    return (
+      <div className="profile-container">
+        {this.state.redirect ? <Redirect to={"login"} /> : ""}
+        <button
+          className="logout-button"
+          type="submit"
+          onClick={() => this.handleLogout()}
+        >
+          Logout
+        </button>
+
+        {
+          <CategoryPreview
+            quizList={this.state.quizzes}
+            categoryName="Your Quizzes"
+            user={this.state.user_id}
+            deleteButton={this.deleteButton}
+          />
+        }
+      </div>
+    );
+  }
+}
 
 export default Profile;
