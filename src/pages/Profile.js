@@ -35,7 +35,7 @@ class Profile extends React.Component {
     if (
       window.confirm("Are you sure you want to delete?\nThis cannot be undone")
     ) {
-      //deleteQuiz(id, user_id);
+      deleteQuiz(id, this.state.user_id);
       let quizzes = this.state.quizzes;
       quizzes.splice(pos, 1);
       console.log("_: ", quizzes);
