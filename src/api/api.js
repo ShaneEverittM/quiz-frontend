@@ -8,7 +8,8 @@ const axiosWithCookies = axios.create({ withCredentials: true });
 const submitQuiz = async (data) => {
   try {
     let res = await axios.post(`${serverURL}/quiz`, data);
-    return res;
+
+    return res.data;
   } catch (e) {
     console.log("error: ", e);
   }

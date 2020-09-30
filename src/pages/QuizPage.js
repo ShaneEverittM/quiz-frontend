@@ -33,7 +33,7 @@ class QuizPage extends React.Component {
       showTweets: true,
       title: "Who want's to be a twitter comedian?",
       description:
-        "Whose twitter is funnier?? Enter two Twitter usernames to get some of their tweets",
+        "You found the secret page!! Enter two Twitter usernames to get some of their tweets, and then vote for the one you like more!",
     });
   };
   queryQuiz = async (id) => {

@@ -9,7 +9,7 @@ import { submitQuiz } from "../api/api.js";
 
 import "./NewQuizPage.css";
 
-//TODO refactor into smaller components
+//TODO link quiz on succesful creation
 
 class NewQuizPage extends React.Component {
   state = {
@@ -21,6 +21,7 @@ class NewQuizPage extends React.Component {
     selectedQuestion: -1,
     selectedAnswer: -1,
     selectedResult: -1,
+    buttonText: "Submit",
     msg: "",
     error: false,
   };
@@ -82,7 +83,7 @@ class NewQuizPage extends React.Component {
   };
 
   onUnload = (e) => {
-    if (this.inProgress) {
+    if (Boolean(this.inProgress())) {
       e.preventDefault();
       e.returnValue = "You will lose your progress if you leave now!";
     }
@@ -214,7 +215,7 @@ class NewQuizPage extends React.Component {
 
     return errorCode;
   };
-
+  successMsg = () => {};
   setErrorMsg = (errorCode) => {
     let msg = "";
     if (errorCode & 1) msg += "@No listed answers";
@@ -229,12 +230,20 @@ class NewQuizPage extends React.Component {
     this.setState({ msg, error: true });
   };
 
-  submit = () => {
+  submit = async () => {
     let dataToSend = this.packData();
     let errorStatus = this.validate(dataToSend);
     if (errorStatus === 0) {
-      this.setState({ error: false });
-      submitQuiz(dataToSend);
+      this.setState({ error: false, buttonText: "loading..." });
+      let response = await submitQuiz(dataToSend);
+      if (response) {
+        this.setState({
+          msg: response,
+        });
+      } else {
+        this.setState({ msg: "uh oh, something went wrong", error: true });
+      }
+
       this.setState({
         questions: [],
         quizHeader: {},
@@ -244,22 +253,32 @@ class NewQuizPage extends React.Component {
         selectedQuestion: -1,
         selectedAnswer: -1,
         selectedResult: -1,
+        buttonText: "Submit",
       });
-      this.setState({ msg: "Success!" });
     } else {
       this.setErrorMsg(errorStatus);
     }
   };
 
   renderMsg = () => {
+    //TODO  not this
     return (
       <div>
         {this.state.msg ? (
-          <div className={`${this.state.msg[0] === "@" ? "error" : "success"}`}>
-            {this.state.msg.split("@").map((item, i) => {
-              return <div key={i}> {item}</div>;
-            })}
-          </div>
+          this.state.error ? (
+            <div className="error">
+              {this.state.msg.split("@").map((item, i) => {
+                return <div key={i}> {item}</div>;
+              })}
+            </div>
+          ) : (
+            <div className="success">
+              Success!{" "}
+              <a href={`/takequiz/${this.state.msg}`}>
+                Check out your new quiz here!
+              </a>
+            </div>
+          )
         ) : (
           ""
         )}
@@ -327,12 +346,16 @@ class NewQuizPage extends React.Component {
             this.submit();
           }}
         >
-          Submit
+          {this.state.buttonText}
         </button>
 
         {this.renderMsg()}
         <div className="tips">
           <div style={{ textAlign: "center" }}>Tips</div>
+          <div>
+            If you're not logged in your quiz to find becomes an orphan and will
+            not be easy and impossible to edit.
+          </div>
           <span role="img" aria-label="trash" className="container-item">
             ❗ - means there are unmatched answers
           </span>
