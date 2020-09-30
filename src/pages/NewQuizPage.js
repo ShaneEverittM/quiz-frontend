@@ -57,7 +57,6 @@ class NewQuizPage extends React.Component {
   };
 
   selectQuestion = (selected) => {
-    console.log("selected: ", selected);
     this.setState({
       selectedQuestion: selected,
       selectedAnswer: 0,
@@ -67,7 +66,6 @@ class NewQuizPage extends React.Component {
     });
   };
   selectAnswer = (selected) => {
-    console.log("selected: ", selected);
     this.setState({ selectedAnswer: selected, selectedResult: -1 });
   };
   selectResult = (selected) => {
@@ -136,12 +134,7 @@ class NewQuizPage extends React.Component {
   };
   editAnswer = (newAnswer) => {
     let { answers } = this.state;
-    console.log("answers: ", answers);
-    console.log("this.state.selectedAnswer: ", this.state.selectedAnswer);
-    console.log(
-      "answers[this.state.selectedAnswer]: ",
-      answers[this.state.selectedAnswer]
-    );
+
     answers[this.state.selectedQuestion][this.state.selectedAnswer] = {
       description: newAnswer,
       val: null,
@@ -166,10 +159,8 @@ class NewQuizPage extends React.Component {
     text,
     edit
   ) => {
-    console.log("type: ", type);
     let toDisplay = this.state[`${type}`];
-    console.log("this.state[`${type}`]: ", this.state[`${type}`]);
-    console.log(this.state);
+
     return (
       <div>
         <div>
