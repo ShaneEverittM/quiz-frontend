@@ -14,7 +14,7 @@ const Login = ({ setLog, log }) => {
 
   const handleLogin = async (name, pass) => {
     setButtonText("loading...");
-    let res = await login(name, pass);
+    let res = await login(name.toLowerCase(), pass.toLowerCase());
     if (res) {
       setLog(true);
       Cookies.set("token", res.id);
@@ -37,6 +37,7 @@ const Login = ({ setLog, log }) => {
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           type="text"
+          placeholder="email"
         />
         <input
           className="login-input"

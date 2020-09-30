@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 
 import "./Login.css";
 
-//TODO refactor with login
+//TODO input verification
 const Register = ({ setLog }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +14,7 @@ const Register = ({ setLog }) => {
   const [usernameFeedback, setUsernameFeedback] = useState("");
   const [passwordFeedback, setPasswordFeedback] = useState("");
   const [buttonText, setButtonText] = useState("Register");
-
+  const [showPass, setShowPass] = useState(false);
   const validData = () => {
     return (
       validateEmail(userName) &&
@@ -32,7 +32,7 @@ const Register = ({ setLog }) => {
   const submit = async () => {
     if (validData()) {
       setButtonText("loading...");
-      let res = await register(userName, password);
+      let res = await register(userName.toLowerCase(), password.toLowerCase());
       if (res.data && res.data.length !== 0) {
         Cookies.set("token", res.data);
         setLog(true);
@@ -76,7 +76,7 @@ const Register = ({ setLog }) => {
           id="passwordField"
           value={password}
           onChange={(e) => updatePassword(e.target.value)}
-          type="password"
+          type={showPass ? "text" : "password"}
         />
         <label htmlFor="confPassword">Confirm password</label>
         <input
@@ -84,8 +84,11 @@ const Register = ({ setLog }) => {
           id="confPassword"
           value={confpassword}
           onChange={(e) => setConfpassword(e.target.value)}
-          type="password"
+          type={showPass ? "text" : "password"}
         />
+        <button className="login-input" onClick={() => setShowPass(!showPass)}>
+          {showPass ? "hide" : "show"} password
+        </button>
         <button
           className="login-button"
           onClick={() => submit()} // some sort of back end api request
