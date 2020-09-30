@@ -20,7 +20,7 @@ const getUserQuizzes = async (user_id) => {
     let res = await axiosWithCookies.get(
       `${serverURL}/quizzes?user_id=${user_id}`
     );
-    console.log("res: ", res);
+
     return res;
   } catch (e) {
     console.log("error: ", e);
@@ -62,11 +62,8 @@ const deleteQuiz = async (q_id, u_id) => {
 };
 
 const checkLogin = async (id) => {
-  console.log('Cookies.get("token"): ', Cookies.get("token"));
   try {
     let res = await axiosWithCookies.get(`${serverURL}/users/cookies/${id}`);
-    console.log("res: ", res.data);
-
     return res;
   } catch (e) {
     console.log("error: ", e);
@@ -78,7 +75,6 @@ const login = async (username, password) => {
   let data = { username, password };
   try {
     let res = await axiosWithCookies.post(`${serverURL}/users/login`, data);
-    console.log("res.data: ", res.data);
     return res.data;
   } catch (e) {
     console.log("error: ", e);
@@ -91,7 +87,6 @@ const logout = async () => {
     let res = await axiosWithCookies.post(`${serverURL}/users/logout`, {
       1: 1,
     });
-    console.log("res: ", res.data);
 
     return res;
   } catch (e) {

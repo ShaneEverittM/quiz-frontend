@@ -38,7 +38,7 @@ class QuizPage extends React.Component {
   };
   queryQuiz = async (id) => {
     let { data } = await getQuiz(id);
-    console.log("data: ", data);
+
     if (data && data.quiz) {
       let { description, name } = data.quiz;
 

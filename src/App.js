@@ -22,7 +22,6 @@ class App extends React.Component {
   };
 
   setLog = (loggedIn) => {
-    console.log("value: ", this.state.loggedIn);
     this.setState({ loggedIn });
     Cookies.set("logStatus", loggedIn);
   };
@@ -30,7 +29,6 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        {console.log("reloading app", this.state.loggedIn)}
         <Navbar log={this.state.loggedIn} />
 
         <Route path="/" exact component={Home} />

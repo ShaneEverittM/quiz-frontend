@@ -18,7 +18,6 @@ class Profile extends React.Component {
     try {
       let { data } = await getUserQuizzes(this.state.user_id);
       if (data) this.setState({ quizzes: data });
-      console.log("data: ", data);
     } catch (e) {
       console.log(e);
     }
@@ -38,7 +37,6 @@ class Profile extends React.Component {
       deleteQuiz(id, this.state.user_id);
       let quizzes = this.state.quizzes;
       quizzes.splice(pos, 1);
-      console.log("_: ", quizzes);
       this.setState(quizzes);
     }
   };

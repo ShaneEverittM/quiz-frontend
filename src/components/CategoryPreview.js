@@ -6,7 +6,6 @@ import "./CategoryPreview.css";
 let CategoryPreview = ({ quizList, categoryName, user, deleteButton }) => {
   return (
     <div>
-      {console.log("quizList: ", quizList)}
       <p className="quiz-category">{categoryName}</p>
       <div className="quiz-preview">
         {quizList.map((quizObj, i) => {

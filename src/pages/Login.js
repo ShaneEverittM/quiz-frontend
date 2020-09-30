@@ -15,7 +15,6 @@ const Login = ({ setLog, log }) => {
   const handleLogin = async (name, pass) => {
     setButtonText("loading...");
     let res = await login(name, pass);
-    console.log("res: ", res);
     if (res) {
       setLog(true);
       Cookies.set("token", res.id);
@@ -26,11 +25,7 @@ const Login = ({ setLog, log }) => {
       setLoginFail(true);
     }
   };
-  const handleLogout = async () => {
-    await logout();
-    setLog(false);
-    Cookies.remove("token");
-  };
+
   return (
     <div>
       {redirect ? <Redirect to={"profile"} /> : ""}
