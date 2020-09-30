@@ -35,7 +35,7 @@ const Navbar = ({ log }) => {
         >
           Search
         </NavLink>
-        {log == "false" || !log ? ( // I hate javascript
+        {log === "false" || !log ? ( // I hate javascript
           <NavLink
             activeClassName="current-tab"
             className="navbar-content"

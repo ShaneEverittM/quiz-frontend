@@ -1,6 +1,5 @@
 import axios from "axios";
 
-import Cookies from "js-cookie";
 const serverURL = "http://localhost:8000";
 const tweetURL = "http://localhost:3001";
 

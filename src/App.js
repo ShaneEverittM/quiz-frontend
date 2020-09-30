@@ -18,7 +18,7 @@ import Profile from "./pages/Profile";
 import "./styles.css";
 class App extends React.Component {
   state = {
-    loggedIn: Cookies.get("logStatus") == "true",
+    loggedIn: Cookies.get("logStatus") === "true",
   };
 
   setLog = (loggedIn) => {

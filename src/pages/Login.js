@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { login, checkLogin, logout } from "../api/api";
+import { login } from "../api/api";
 import Cookies from "js-cookie";
 
 import "./Login.css";
