@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { register } from "../api/api";
 import { Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -15,6 +15,7 @@ const Register = ({ setLog }) => {
   const [passwordFeedback, setPasswordFeedback] = useState("");
   const [buttonText, setButtonText] = useState("Register");
   const [showPass, setShowPass] = useState(false);
+
   const validData = () => {
     return (
       validateEmail(userName) &&
@@ -29,6 +30,15 @@ const Register = ({ setLog }) => {
     const re = /\S+@\S+\.\S+/;
     return re.test(String(email).toLowerCase());
   };
+  useEffect(() => {
+    !validateEmail(userName) && userName
+      ? setUsernameFeedback("Invalid email format")
+      : setUsernameFeedback("");
+    password.length < 4 && password
+      ? setPasswordFeedback("password must be a minimum of 4 characters long")
+      : setPasswordFeedback("");
+  }, [userName, password]);
+
   const submit = async () => {
     if (validData()) {
       setButtonText("loading...");
@@ -43,18 +53,10 @@ const Register = ({ setLog }) => {
       }
     } else setUsernameFeedback("Error in email");
   };
-  const updateUserName = (input) => {
-    setUserName(input);
-    if (input.length < 4)
-      setUsernameFeedback("Username must be atleast 4 characters Long\n");
-    else setUsernameFeedback("");
+  const updateField = (input, updateFunc) => {
+    if (input[input.length - 1] !== " ") updateFunc(input);
   };
-  const updatePassword = (input) => {
-    setPassword(input);
-    if (input.length < 4)
-      setPasswordFeedback("Password must be atleast 4 characters Long\n");
-    else setPasswordFeedback("");
-  };
+
   return (
     <div>
       {redirect ? <Redirect to={"profile"} /> : ""}
@@ -66,7 +68,7 @@ const Register = ({ setLog }) => {
           id="usernameField"
           value={userName}
           onChange={(e) => {
-            updateUserName(e.target.value);
+            updateField(e.target.value, setUserName);
           }}
           type="email"
         />
@@ -75,7 +77,7 @@ const Register = ({ setLog }) => {
           className="login-input"
           id="passwordField"
           value={password}
-          onChange={(e) => updatePassword(e.target.value)}
+          onChange={(e) => updateField(e.target.value, setPassword)}
           type={showPass ? "text" : "password"}
         />
         <label htmlFor="confPassword">Confirm password</label>
@@ -83,7 +85,7 @@ const Register = ({ setLog }) => {
           className="login-input"
           id="confPassword"
           value={confpassword}
-          onChange={(e) => setConfpassword(e.target.value)}
+          onChange={(e) => updateField(e.target.value, setConfpassword)}
           type={showPass ? "text" : "password"}
         />
         <button className="login-input" onClick={() => setShowPass(!showPass)}>
