@@ -47,7 +47,7 @@ const Login = ({ setLog, log }) => {
         />
         <button
           className="login-button"
-          onClick={() => handleLogin(userName, password)} // some sort of back end api request
+          onClick={() => handleLogin(userName, password)}
         >
           {buttonText}
         </button>

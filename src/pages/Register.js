@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 
 import "./Login.css";
 
-//TODO input verification
 const Register = ({ setLog }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -104,6 +103,10 @@ const Register = ({ setLog }) => {
           : ""}
         <div>
           Already registered? <a href="/login"> Sign in here!</a>
+        </div>
+        <div>
+          (Don't use your email or bank password, the security on this site is
+          medicore at best)
         </div>
       </div>
     </div>

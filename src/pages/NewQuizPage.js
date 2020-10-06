@@ -9,8 +9,6 @@ import { submitQuiz } from "../api/api.js";
 
 import "./NewQuizPage.css";
 
-//TODO link quiz on succesful creation
-
 class NewQuizPage extends React.Component {
   state = {
     questions: [],

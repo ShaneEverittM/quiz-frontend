@@ -10,6 +10,7 @@ const Search = () => {
 
   const handleSubmit = async () => {
     let { data } = await search(searchTerm);
+    console.log("data: ", data);
 
     setResults(data);
     toggleSearched(true);
