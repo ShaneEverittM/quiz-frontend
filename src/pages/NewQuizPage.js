@@ -354,7 +354,7 @@ class NewQuizPage extends React.Component {
         <div className="tips">
           <div style={{ textAlign: "center" }}>Tips</div>
           <div>
-            If you're not logged in your quiz to find becomes an orphan and will
+            If you're not logged in, your new quiz becomes an orphan and will
             not be easy to find and impossible to edit.
           </div>
           <span role="img" aria-label="trash" className="container-item">

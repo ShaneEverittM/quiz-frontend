@@ -4,7 +4,7 @@
 }
 .quiz-title {
   align-self: center;
-  background-color: #ace5fc;
+  background-color: #0d2731;
   border-radius: 5px;
   padding: 5px;
   max-height: 100px;
@@ -43,7 +43,7 @@
   align-self: center;
 
   margin-top: 100px;
-  padding: 5px;
+  padding: 15px;
   border-radius: 4px;
 }
 .createPage {

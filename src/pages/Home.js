@@ -16,14 +16,12 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="category-container">
-        <div className="barthing"></div>
         <CategoryPreview
           quizList={quizzes.slice(0, NUM_QUIZZES_IN_CATEGORY)}
           categoryName="Top Quizzes by our Best"
         />
       </div>
       <div className="category-container">
-        <div className="barthing"></div>
         <CategoryPreview
           quizList={quizzes.slice(
             NUM_QUIZZES_IN_CATEGORY,
@@ -33,7 +31,6 @@ const Home = () => {
         />
       </div>{" "}
       <div className="category-container">
-        <div className="barthing"></div>
         <CategoryPreview
           quizList={quizzes.slice(
             2 * NUM_QUIZZES_IN_CATEGORY,

@@ -8,21 +8,25 @@
   content: "             ";
   position: absolute;
   border-bottom: 5px solid black; /*use this to adjust underlin color and size*/
-  width: 95%; /*use this to adjust underline width*/
+  width: 90%; /*use this to adjust underline width*/
   height: 1.1em; /*use this to adjust underline position*/
 }
 .category-container {
   display: flex;
   align-items: center;
 }
+
 .barthing {
   height: 50vh;
   width: 250px;
   max-width: 200px;
   margin-top: 50px;
-  background-color: grey;
-  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  background-color: #0d2731;
+  clip-path: polygon(26% 7%, 100% 0%, 74% 93%, 0% 100%);
   -webkit-clip-path: polygon(28% 15%, 100% 0%, 62% 100%, 0 100%);
+}
+.barthing-wrap {
+  /* filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.5)); */
 }
 .quiz-card {
   font-size: large;
