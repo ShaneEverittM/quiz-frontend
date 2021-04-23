@@ -6,8 +6,13 @@ import "./CategoryPreview.css";
 let CategoryPreview = ({ quizList, categoryName, user, deleteButton }) => {
   return (
     <div>
-      <p className="quiz-category">{categoryName}</p>
-      <div className="quiz-preview">
+      <p className="quiz-category">
+        <span style={{ marginLeft: "20px", fontStyle: "italic" }}>
+          {categoryName}
+        </span>
+      </p>
+
+      <div className="quiz-preview background-design">
         {quizList.map((quizObj, i) => {
           return (
             <div style={{ display: "grid" }} key={quizObj.id}>

@@ -355,7 +355,7 @@ class NewQuizPage extends React.Component {
           <div style={{ textAlign: "center" }}>Tips</div>
           <div>
             If you're not logged in your quiz to find becomes an orphan and will
-            not be easy and impossible to edit.
+            not be easy to find and impossible to edit.
           </div>
           <span role="img" aria-label="trash" className="container-item">
             ❗ - means there are unmatched answers

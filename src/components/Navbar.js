@@ -53,6 +53,7 @@ const Navbar = ({ log }) => {
           </NavLink>
         )}
       </div>
+      <div className="sidebar"></div>
     </div>
   );
 };

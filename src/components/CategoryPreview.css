@@ -2,15 +2,25 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 10px;
-  margin-bottom: 30px;
 }
 
 .quiz-category {
   font-size: large;
   font-weight: 200;
 }
-
+.background-design {
+  background-image: radial-gradient(
+    rgb(252, 116, 116) 0%,
+    rgb(172, 2, 2) 47%,
+    rgb(148, 53, 53) 47%,
+    #ffffff 47%,
+    #ffffff 48%
+  );
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 400px 400px;
+  border-radius: 50%;
+}
 .previewIcon {
   transition-duration: 0.3s;
   transform-origin: left top;
