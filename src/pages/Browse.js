@@ -14,8 +14,11 @@ const Browse = () => {
   }, []);
 
   return (
-    <div>
-      <CategoryPreview quizList={quizList} categoryName="All" />
+    <div className="mainpage">
+      <div className="barthing"></div>
+      <div className="home-container">
+        <CategoryPreview quizList={quizList} categoryName="All" />
+      </div>
     </div>
   );
 };

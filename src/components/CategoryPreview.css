@@ -21,6 +21,19 @@
   background-size: 400px 400px;
   border-radius: 50%;
 }
+
+@media only screen and (min-width: 600px) {
+  .background-design {
+    background-size: 900px 900px;
+  }
+}
+
+@media only screen and (min-width: 1322px) {
+  .background-design {
+    background-size: 400px 400px;
+  }
+}
+
 .previewIcon {
   transition-duration: 0.3s;
   transform-origin: left top;

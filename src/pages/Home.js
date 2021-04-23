@@ -15,25 +15,33 @@ const Home = () => {
   }, []);
   return (
     <div className="home-container">
-      <CategoryPreview
-        quizList={quizzes.slice(0, NUM_QUIZZES_IN_CATEGORY)}
-        categoryName="Top Quizzes by our Best"
-      />
-
-      <CategoryPreview
-        quizList={quizzes.slice(
-          NUM_QUIZZES_IN_CATEGORY,
-          2 * NUM_QUIZZES_IN_CATEGORY
-        )}
-        categoryName="Picked esspecially for you (and everyone else)"
-      />
-      <CategoryPreview
-        quizList={quizzes.slice(
-          2 * NUM_QUIZZES_IN_CATEGORY,
-          3 * NUM_QUIZZES_IN_CATEGORY
-        )}
-        categoryName="Our spiciest quizzes"
-      />
+      <div className="category-container">
+        <div className="barthing"></div>
+        <CategoryPreview
+          quizList={quizzes.slice(0, NUM_QUIZZES_IN_CATEGORY)}
+          categoryName="Top Quizzes by our Best"
+        />
+      </div>
+      <div className="category-container">
+        <div className="barthing"></div>
+        <CategoryPreview
+          quizList={quizzes.slice(
+            NUM_QUIZZES_IN_CATEGORY,
+            2 * NUM_QUIZZES_IN_CATEGORY
+          )}
+          categoryName="Picked esspecially for you (and everyone else)"
+        />
+      </div>{" "}
+      <div className="category-container">
+        <div className="barthing"></div>
+        <CategoryPreview
+          quizList={quizzes.slice(
+            2 * NUM_QUIZZES_IN_CATEGORY,
+            3 * NUM_QUIZZES_IN_CATEGORY
+          )}
+          categoryName="Our spiciest quizzes"
+        />
+      </div>
     </div>
   );
 };
